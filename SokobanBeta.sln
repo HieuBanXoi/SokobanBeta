@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35309.182
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SokobanBeta", "SokobanBeta\SokobanBeta.csproj", "{D10979C0-A54A-4499-A8C9-B6D8627EAAC3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Level 1", "Level 1\Level 1.csproj", "{5608B739-C4BC-44FC-90BA-99CD56BD342B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D10979C0-A54A-4499-A8C9-B6D8627EAAC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D10979C0-A54A-4499-A8C9-B6D8627EAAC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D10979C0-A54A-4499-A8C9-B6D8627EAAC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D10979C0-A54A-4499-A8C9-B6D8627EAAC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5608B739-C4BC-44FC-90BA-99CD56BD342B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5608B739-C4BC-44FC-90BA-99CD56BD342B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5608B739-C4BC-44FC-90BA-99CD56BD342B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5608B739-C4BC-44FC-90BA-99CD56BD342B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0A1AAB78-57F6-4BC0-80AE-89908BC07F08}
+	EndGlobalSection
+EndGlobal
