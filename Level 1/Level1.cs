@@ -15,7 +15,7 @@ namespace Level_1
     {
         private GameMapManager mapManager;
         private char[,] map;
-        private int playerX = 2, playerY = 1; // Vị trí bắt đầu của người chơi
+        private int playerX , playerY ; // Vị trí bắt đầu của người chơi
         private int cellSize = 64;           // Kích thước mỗi ô
         private Image wallImage;
         private Image boxImage;
@@ -37,34 +37,55 @@ namespace Level_1
             LoadMaps();
             LoadCurrentMap();
 
-            this.Width = map.GetLength(1) * cellSize + 16; // Độ rộng form
-            this.Height = map.GetLength(0) * cellSize + 39; // Chiều cao form
-            this.Text = "Level1";
+            
             this.KeyDown += SokobanForm_KeyDown;
             this.Paint += SokobanForm_Paint;
+
+
         }
 
         private void LoadMaps()
         {
             mapManager = new GameMapManager();
             mapManager.AddMap(new GameMap("Level 1", new char[,] {
-        { '#', '#', '#', '#', '#' },
-        { '#', 'P', ' ', ' ', '#' },
-        { '#', ' ', 'B', 'G', '#' },
-        { '#', '#', '#', '#', '#' }
-    }, 1, 1));
+            { '#', '#', '#', '#', '#' },
+            { '#', 'P', ' ', ' ', '#' },
+            { '#', ' ', 'B', 'G', '#' },
+            { '#', '#', '#', '#', '#' }
+        }, 1, 1));
 
             mapManager.AddMap(new GameMap("Level 2", new char[,] {
-        { '#', '#', '#', '#', '#', '#', '#' },
-        { '#', ' ', ' ', ' ', ' ', ' ', '#' },
-        { '#', 'P', ' ', ' ', ' ', ' ', '#' },
-        { '#', ' ', 'B', ' ', 'G', ' ', '#' },
-        { '#', ' ', ' ', ' ', ' ', ' ', '#' },
-        { '#', ' ', ' ', ' ', ' ', ' ', '#' },
-        { '#', '#', '#', '#', '#', '#', '#' }
-    }, 2, 1));
+            { '#', '#', '#', '#', '#', '#', '#' },
+            { '#', ' ', ' ', ' ', ' ', ' ', '#' },
+            { '#', 'P', ' ', ' ', ' ', ' ', '#' },
+            { '#', ' ', 'B', '#', 'G', ' ', '#' },
+            { '#', ' ', ' ', '#', ' ', ' ', '#' },
+            { '#', ' ', ' ', '#', ' ', ' ', '#' },
+            { '#', '#', '#', '#', '#', '#', '#' }
+        }, 2, 1));
+
+            mapManager.AddMap(new GameMap("Level 3", new char[,] {
+            { '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', ' ', ' ' },
+            { '#', 'G', 'G', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', '#', '#', '#' },
+            { '#', 'G', 'G', ' ', ' ', '#', ' ', 'B', ' ', ' ', 'B', ' ', ' ', '#' },
+            { '#', 'G', 'G', ' ', ' ', '#', 'B', '#', '#', '#', '#', ' ', ' ', '#' },
+            { '#', 'G', 'G', ' ', ' ', ' ', ' ', 'P', ' ', '#', '#', ' ', ' ', '#' },
+            { '#', 'G', 'G', ' ', ' ', '#', ' ', '#', ' ', ' ', 'B', ' ', '#', '#' },
+            { '#', '#', '#', '#', '#', '#', ' ', '#', '#', 'B', ' ', 'B', ' ', '#' },
+            { ' ', ' ', '#', ' ', 'B', ' ', ' ', 'B', ' ', 'B', ' ', 'B', ' ', '#' },
+            { ' ', ' ', '#', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', '#' },
+            { ' ', ' ', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#' }
+        }, 4, 7));
+
         }
-            
+        private void UpdateFormSize()
+        {
+            if (map != null)
+            {
+                this.Width = map.GetLength(1) * cellSize + 16; // Độ rộng form
+                this.Height = map.GetLength(0) * cellSize + 39; // Chiều cao form
+            }
+        }
 
         private void LoadCurrentMap()
         {
@@ -74,6 +95,9 @@ namespace Level_1
                 map = currentMap.MapData;
                 playerX = currentMap.PlayerStartX;
                 playerY = currentMap.PlayerStartY;
+                //this.StartPosition = FormStartPosition.CenterScreen;
+                this.Text = currentMap.Name;
+                UpdateFormSize();
                 this.Invalidate(); // Vẽ lại màn hình
             }
         }
@@ -227,6 +251,7 @@ namespace Level_1
             b_TrangThai = TrangThai.OutGoal;
             NextLevel();
         }
+
 
         // Sự kiện vẽ giao diện trò chơi
         private void SokobanForm_Paint(object sender, PaintEventArgs e)
