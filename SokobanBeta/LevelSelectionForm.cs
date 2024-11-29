@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using Level_1;
 
 namespace SokobanBeta
 {
@@ -26,11 +27,24 @@ namespace SokobanBeta
         }
 
         // Xử lý sự kiện khi nhấn vào một nút chọn màn chơi
+        //private void BtnLevel_Click(object sender, EventArgs e, int level)
+        //{
+        //    MessageBox.Show($"You selected Level {level}", $"Level {level}");
+        //    // Thêm logic chuyển sang màn chơi ở đây nếu cần
+        //    this.Close();
+        //}
         private void BtnLevel_Click(object sender, EventArgs e, int level)
         {
-            MessageBox.Show($"You selected Level {level}", $"Level {level}");
-            // Thêm logic chuyển sang màn chơi ở đây nếu cần
-            this.Close();
+            // Tạo một form mới để chơi level tương ứng
+            Main gameForm = new Main();
+            gameForm.LoadSpecificLevel(level); // Tải level tương ứng
+            gameForm.Show();
+
+            // Ẩn menu chính để tập trung vào trò chơi
+            this.Hide();
+
+            // Khi form game đóng, hiển thị lại menu chính
+            gameForm.FormClosed += (s, args) => this.Show();
         }
 
         // Xử lý sự kiện khi nhấn nút "Back"

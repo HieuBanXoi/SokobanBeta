@@ -46,7 +46,13 @@ namespace Level_1
 
 
         }
-        
+
+        public void LoadSpecificLevel(int level)
+        {
+            mapManager.SetCurrentMap(level - 1); // Chuyển đến level tương ứng (index bắt đầu từ 0)
+            LoadCurrentMap(); // Tải map của level đó
+        }
+
 
         private void LoadMaps()
         {

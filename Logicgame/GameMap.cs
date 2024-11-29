@@ -53,6 +53,15 @@ namespace Map
             return false;
         }
 
+        
+        public void SetCurrentMap(int index)
+        {
+            if (index >= 0 && index < maps.Count)
+            {
+                currentMapIndex = index;
+            }
+        }
+
         public bool HasMoreMaps()
         {
             return currentMapIndex + 1 < maps.Count;
