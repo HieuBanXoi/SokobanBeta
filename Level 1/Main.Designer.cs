@@ -1,6 +1,9 @@
-﻿namespace Level_1
+﻿using System.Collections.Generic;
+using System.Drawing;
+
+namespace Level_1
 {
-    partial class Level1
+    partial class Main
     {
         /// <summary>
         /// Required designer variable.
@@ -40,7 +43,7 @@
             this.ResumeLayout(false);
 
         }
-
+        
         #endregion
     }
 }

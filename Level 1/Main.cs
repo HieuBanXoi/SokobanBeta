@@ -11,7 +11,7 @@ using Map;
 
 namespace Level_1
 {
-    public partial class Level1 : Form
+    public partial class Main : Form
     {
         private GameMapManager mapManager;
         private char[,] map;
@@ -24,12 +24,13 @@ namespace Level_1
         private Image placedBoxImage;
         enum TrangThai { OnGoal, OutGoal };
 
-        TrangThai p_TrangThai = TrangThai.OutGoal;
-        TrangThai b_TrangThai = TrangThai.OutGoal;
+        TrangThai p_TrangThai = TrangThai.OutGoal; // Trạng thái của Player
+        TrangThai b_TrangThai = TrangThai.OutGoal; // Trạng thái của Box
 
-        public Level1()
+        public Main()
         {
             InitializeComponent();
+
             this.DoubleBuffered = true;
             playerImage = Image.FromFile("C:\\Users\\Administrator\\source\\repos\\SokobanBeta\\Level 1\\Resources\\player.png");
             goalImage = Image.FromFile("C:\\Users\\Administrator\\source\\repos\\SokobanBeta\\Level 1\\Resources\\goal.png");
@@ -39,12 +40,13 @@ namespace Level_1
             LoadMaps();
             LoadCurrentMap();
 
-            
+            //InitializeUI();
             this.KeyDown += SokobanForm_KeyDown;
             this.Paint += SokobanForm_Paint;
 
 
         }
+        
 
         private void LoadMaps()
         {
@@ -103,15 +105,7 @@ namespace Level_1
             }, 1, 3));
 
         }
-        private void UpdateFormSize()
-        {
-            if (map != null)
-            {
-                this.Width = map.GetLength(1) * cellSize + 16; // Độ rộng form
-                this.Height = map.GetLength(0) * cellSize + 39; // Chiều cao form
-            }
-        }
-
+        
         private void LoadCurrentMap()
         {
             GameMap currentMap = mapManager.GetCurrentMap();
@@ -120,14 +114,21 @@ namespace Level_1
                 map = currentMap.MapData;
                 playerX = currentMap.PlayerStartX;
                 playerY = currentMap.PlayerStartY;
-                //this.StartPosition = FormStartPosition.CenterScreen;
+                this.StartPosition = FormStartPosition.WindowsDefaultLocation;
                 this.Text = currentMap.Name;
                 UpdateFormSize();
                 this.Invalidate(); // Vẽ lại màn hình
             }
         }
 
-        
+        private void UpdateFormSize()
+        {
+            if (map != null)
+            {
+                this.Width = map.GetLength(1) * cellSize + 16; // Độ rộng form
+                this.Height = map.GetLength(0) * cellSize + 39; // Chiều cao form
+            }
+        }
         private void SokobanForm_KeyDown(object sender, KeyEventArgs e)
         {
             int dx = 0, dy = 0;
@@ -265,7 +266,7 @@ namespace Level_1
             }
             this.Invalidate();
             // Nếu tất cả mục tiêu đã được lấp đầy
-            MessageBox.Show("Ban da win", "Level Completed");
+            MessageBox.Show("You Win!!!", "Level Completed");
             b_TrangThai = TrangThai.OutGoal;
             NextLevel();
         }
@@ -281,6 +282,7 @@ namespace Level_1
                 Application.Exit();
             }
         }
+
 
         // Sự kiện vẽ giao diện trò chơi
         private void SokobanForm_Paint(object sender, PaintEventArgs e)
