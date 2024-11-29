@@ -7,27 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Map;
 
 namespace Level_1
 {
     public partial class Level1 : Form
     {
-        private char[,] map = {
-            { '#', '#', '#', '#', '#', '#', '#' },
-            { '#', ' ', 'G', 'G', 'G', ' ', '#' },
-            { '#', ' ', ' ', 'G', ' ', ' ', '#' },
-            { '#', ' ', 'B', 'G', 'G', 'G', '#' },
-            { '#', ' ', ' ', 'G', ' ', ' ', '#' },
-            { '#', ' ', 'P', 'G', ' ', ' ', '#' },
-            { '#', '#', '#', '#', '#', '#', '#' }
-
-            //{ '#', '#', '#', '#', '#' },
-            //{ '#', 'P', ' ', ' ', '#' },
-            //{ '#', ' ', 'B', 'G', '#' },
-            //{ '#', '#', '#', '#', '#' }
-        };
-
-        private int playerX = 5, playerY = 2; // Vị trí bắt đầu của người chơi
+        private GameMapManager mapManager;
+        private char[,] map;
+        private int playerX = 2, playerY = 1; // Vị trí bắt đầu của người chơi
         private int cellSize = 64;           // Kích thước mỗi ô
         private Image wallImage;
         private Image boxImage;
@@ -45,11 +33,62 @@ namespace Level_1
             goalImage = Image.FromFile("C:\\Users\\Administrator\\source\\repos\\SokobanBeta\\Level 1\\Resources\\goal.png");
             boxImage = Image.FromFile("C:\\Users\\Administrator\\source\\repos\\SokobanBeta\\Level 1\\Resources\\box.png");
             wallImage = Image.FromFile("C:\\Users\\Administrator\\source\\repos\\SokobanBeta\\Level 1\\Resources\\wall.png");
+
+            LoadMaps();
+            LoadCurrentMap();
+
             this.Width = map.GetLength(1) * cellSize + 16; // Độ rộng form
             this.Height = map.GetLength(0) * cellSize + 39; // Chiều cao form
             this.Text = "Level1";
             this.KeyDown += SokobanForm_KeyDown;
             this.Paint += SokobanForm_Paint;
+        }
+
+        private void LoadMaps()
+        {
+            mapManager = new GameMapManager();
+            mapManager.AddMap(new GameMap("Level 1", new char[,] {
+        { '#', '#', '#', '#', '#' },
+        { '#', 'P', ' ', ' ', '#' },
+        { '#', ' ', 'B', 'G', '#' },
+        { '#', '#', '#', '#', '#' }
+    }, 1, 1));
+
+            mapManager.AddMap(new GameMap("Level 2", new char[,] {
+        { '#', '#', '#', '#', '#', '#', '#' },
+        { '#', ' ', ' ', ' ', ' ', ' ', '#' },
+        { '#', 'P', ' ', ' ', ' ', ' ', '#' },
+        { '#', ' ', 'B', ' ', 'G', ' ', '#' },
+        { '#', ' ', ' ', ' ', ' ', ' ', '#' },
+        { '#', ' ', ' ', ' ', ' ', ' ', '#' },
+        { '#', '#', '#', '#', '#', '#', '#' }
+    }, 2, 1));
+        }
+            
+
+        private void LoadCurrentMap()
+        {
+            GameMap currentMap = mapManager.GetCurrentMap();
+            if (currentMap != null)
+            {
+                map = currentMap.MapData;
+                playerX = currentMap.PlayerStartX;
+                playerY = currentMap.PlayerStartY;
+                this.Invalidate(); // Vẽ lại màn hình
+            }
+        }
+
+        private void NextLevel()
+        {
+            if (mapManager.MoveToNextMap())
+            {
+                LoadCurrentMap();
+            }
+            else
+            {
+                MessageBox.Show("All levels completed!", "Congratulations");
+                Application.Exit();
+            }
         }
         private void SokobanForm_KeyDown(object sender, KeyEventArgs e)
         {
@@ -184,8 +223,9 @@ namespace Level_1
             }
             this.Invalidate();
             // Nếu tất cả mục tiêu đã được lấp đầy
-            MessageBox.Show("You Win!", "Congratulations");
-            Application.Exit();
+            MessageBox.Show("Ban da win", "Level Completed");
+            b_TrangThai = TrangThai.OutGoal;
+            NextLevel();
         }
 
         // Sự kiện vẽ giao diện trò chơi

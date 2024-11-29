@@ -87,5 +87,11 @@
     <EmbeddedResource Include="Resources\goal.png" />
     <EmbeddedResource Include="Resources\wall.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Logicgame\Map.csproj">
+      <Project>{d844c5e6-9e15-45c6-8760-f1091630c91a}</Project>
+      <Name>Map</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

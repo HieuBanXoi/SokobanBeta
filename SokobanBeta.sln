@@ -5,7 +5,9 @@ VisualStudioVersion = 17.12.35309.182
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SokobanBeta", "SokobanBeta\SokobanBeta.csproj", "{D10979C0-A54A-4499-A8C9-B6D8627EAAC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Level 1", "Level 1\Level 1.csproj", "{5608B739-C4BC-44FC-90BA-99CD56BD342B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Level1", "Level 1\Level1.csproj", "{5608B739-C4BC-44FC-90BA-99CD56BD342B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Map", "Logicgame\Map.csproj", "{D844C5E6-9E15-45C6-8760-F1091630C91A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{5608B739-C4BC-44FC-90BA-99CD56BD342B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5608B739-C4BC-44FC-90BA-99CD56BD342B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5608B739-C4BC-44FC-90BA-99CD56BD342B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D844C5E6-9E15-45C6-8760-F1091630C91A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D844C5E6-9E15-45C6-8760-F1091630C91A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D844C5E6-9E15-45C6-8760-F1091630C91A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D844C5E6-9E15-45C6-8760-F1091630C91A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
