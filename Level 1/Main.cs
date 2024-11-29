@@ -22,6 +22,9 @@ namespace Level_1
         private Image goalImage;
         private Image playerImage;
         private Image placedBoxImage;
+        private int steps; // Số bước đã đi
+        private Stack<char[,]> mapHistory; // Lịch sử map
+        private Stack<(int playerX, int playerY)> playerHistory; // Lịch sử vị trí người chơi
         enum TrangThai { OnGoal, OutGoal };
 
         TrangThai p_TrangThai = TrangThai.OutGoal; // Trạng thái của Player
@@ -32,11 +35,14 @@ namespace Level_1
             InitializeComponent();
 
             this.DoubleBuffered = true;
-            playerImage = Image.FromFile("C:\\Users\\Administrator\\source\\repos\\SokobanBeta\\Level 1\\Resources\\player.png");
-            goalImage = Image.FromFile("C:\\Users\\Administrator\\source\\repos\\SokobanBeta\\Level 1\\Resources\\goal.png");
-            boxImage = Image.FromFile("C:\\Users\\Administrator\\source\\repos\\SokobanBeta\\Level 1\\Resources\\box.png");
-            wallImage = Image.FromFile("C:\\Users\\Administrator\\source\\repos\\SokobanBeta\\Level 1\\Resources\\wall.png");
-            placedBoxImage = Image.FromFile("C:\\Users\\Administrator\\source\\repos\\SokobanBeta\\Level 1\\Resources\\placedBox.png");
+            steps = 0;
+            mapHistory = new Stack<char[,]>();
+            playerHistory = new Stack<(int, int)>();
+            playerImage = Image.FromFile("C:\\Users\\Truong Minh Hoang\\source\\repos\\SokobanBeta\\Level 1\\Resources\\player.png");
+            goalImage = Image.FromFile("C:\\Users\\Truong Minh Hoang\\source\\repos\\SokobanBeta\\Level 1\\Resources\\goal.png");
+            boxImage = Image.FromFile("C:\\Users\\Truong Minh Hoang\\source\\repos\\SokobanBeta\\Level 1\\Resources\\Box.png");
+            wallImage = Image.FromFile("C:\\Users\\Truong Minh Hoang\\source\\repos\\SokobanBeta\\Level 1\\Resources\\wall.png");
+            placedBoxImage = Image.FromFile("C:\\Users\\Truong Minh Hoang\\source\\repos\\SokobanBeta\\Level 1\\Resources\\placedBox.png");
             LoadMaps();
             LoadCurrentMap();
 
@@ -142,11 +148,54 @@ namespace Level_1
             else if (e.KeyCode == Keys.Down) dx = 1;
             else if (e.KeyCode == Keys.Left) dy = -1;
             else if (e.KeyCode == Keys.Right) dy = 1;
+            else if (e.KeyCode == Keys.Z && mapHistory.Count > 0) // Lùi lại (phím Z)
+            {
+                UndoLastMove();
+                return;
+            }
 
+            // Lưu trạng thái trước khi di chuyển
+            SaveCurrentState();
+            // Xử lý di chuyển người chơi
             int newX = playerX + dx, newY = playerY + dy;
+            if (ProcessMove(newX, newY, dx, dy))
+            {
+                steps++; // Tăng số bước khi di chuyển hợp lệ
+            }
 
+            
+            // Kiểm tra hoàn thành level
+            CheckWinCondition();
+
+            this.Invalidate(); // Vẽ lại màn hình
+        }
+        private void SaveCurrentState()
+        {
+            // Lưu map hiện tại
+            char[,] currentMapState = (char[,])map.Clone();
+            mapHistory.Push(currentMapState);
+
+            // Lưu vị trí người chơi hiện tại
+            playerHistory.Push((playerX, playerY));
+        }
+
+        private void UndoLastMove()
+        {
+            // Phục hồi map từ lịch sử
+            map = mapHistory.Pop();
+
+            // Phục hồi vị trí người chơi từ lịch sử
+            (playerX, playerY) = playerHistory.Pop();
+
+            // Giảm số bước (nếu cần)
+            if (steps > 0) steps--;
+
+            this.Invalidate(); // Vẽ lại màn hình
+        }
+        private bool ProcessMove(int newX, int newY, int dx, int dy)
+        {
             // Kiểm tra di chuyển hợp lệ
-            if ( map[newX, newY] == 'G')
+            if (map[newX, newY] == 'G')
             {
                 if (p_TrangThai == TrangThai.OnGoal)
                 {
@@ -167,7 +216,7 @@ namespace Level_1
                         break;
                     case TrangThai.OnGoal:
                         map[playerX, playerY] = 'G';
-                        p_TrangThai=TrangThai.OutGoal;
+                        p_TrangThai = TrangThai.OutGoal;
                         break;
                     default:
                         break;
@@ -176,15 +225,15 @@ namespace Level_1
                 playerY = newY;
                 map[playerX, playerY] = 'P';
             }
-            else if (map[newX, newY] == 'B'|| map[newX, newY] == 'A')
+            else if (map[newX, newY] == 'B' || map[newX, newY] == 'A')
             {
-                if(map[newX, newY] == 'A')
+                if (map[newX, newY] == 'A')
                 {
                     b_TrangThai = TrangThai.OnGoal;
                 }
                 // Kiểm tra nếu hộp có thể được đẩy
                 int boxNewX = newX + dx, boxNewY = newY + dy;
-                if(map[boxNewX, boxNewY] == 'G')
+                if (map[boxNewX, boxNewY] == 'G')
                 {
                     if (b_TrangThai == TrangThai.OnGoal)
                     {
@@ -216,7 +265,7 @@ namespace Level_1
                     playerY = newY;
                     b_TrangThai = TrangThai.OutGoal;
                 }
-                if (map[boxNewX, boxNewY] == ' ' )
+                if (map[boxNewX, boxNewY] == ' ')
                 {
                     if (b_TrangThai == TrangThai.OnGoal)
                     {
@@ -249,14 +298,9 @@ namespace Level_1
                     b_TrangThai = TrangThai.OutGoal;
                 }
             }
-            
-            // Kiểm tra hoàn thành level
-            CheckWinCondition();
 
-            this.Invalidate(); // Vẽ lại màn hình
+            return true; // Trả về true nếu di chuyển hợp lệ
         }
-
-
         // Hàm kiểm tra điều kiện chiến thắng
         private void CheckWinCondition()
         {
@@ -317,6 +361,8 @@ namespace Level_1
                     g.DrawRectangle(Pens.Gray, rect); // Viền ô
                 }
             }
+            // Hiển thị số bước đã đi
+            g.DrawString($"Steps: {steps}", new Font("Arial", 14), Brushes.Black, new PointF(10, 10));
         }
 
         
