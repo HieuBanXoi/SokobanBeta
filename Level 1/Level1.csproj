@@ -81,7 +81,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\ground.png" />
     <EmbeddedResource Include="Resources\player.png" />
     <EmbeddedResource Include="Resources\box.png" />
     <EmbeddedResource Include="Resources\goal.png" />
@@ -92,6 +91,9 @@
       <Project>{d844c5e6-9e15-45c6-8760-f1091630c91a}</Project>
       <Name>Map</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\placedBox.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

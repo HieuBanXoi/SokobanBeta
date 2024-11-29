@@ -8,6 +8,7 @@ namespace SokobanBeta
         public MenuForm()
         {
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
 
         // Sự kiện khi nhấn nút "Start Game"

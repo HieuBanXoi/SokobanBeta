@@ -21,6 +21,7 @@ namespace Level_1
         private Image boxImage;
         private Image goalImage;
         private Image playerImage;
+        private Image placedBoxImage;
         enum TrangThai { OnGoal, OutGoal };
 
         TrangThai p_TrangThai = TrangThai.OutGoal;
@@ -29,11 +30,12 @@ namespace Level_1
         public Level1()
         {
             InitializeComponent();
+            this.DoubleBuffered = true;
             playerImage = Image.FromFile("C:\\Users\\Administrator\\source\\repos\\SokobanBeta\\Level 1\\Resources\\player.png");
             goalImage = Image.FromFile("C:\\Users\\Administrator\\source\\repos\\SokobanBeta\\Level 1\\Resources\\goal.png");
             boxImage = Image.FromFile("C:\\Users\\Administrator\\source\\repos\\SokobanBeta\\Level 1\\Resources\\box.png");
             wallImage = Image.FromFile("C:\\Users\\Administrator\\source\\repos\\SokobanBeta\\Level 1\\Resources\\wall.png");
-
+            placedBoxImage = Image.FromFile("C:\\Users\\Administrator\\source\\repos\\SokobanBeta\\Level 1\\Resources\\placedBox.png");
             LoadMaps();
             LoadCurrentMap();
 
@@ -48,34 +50,57 @@ namespace Level_1
         {
             mapManager = new GameMapManager();
             mapManager.AddMap(new GameMap("Level 1", new char[,] {
-            { '#', '#', '#', '#', '#' },
-            { '#', 'P', ' ', ' ', '#' },
-            { '#', ' ', 'B', 'G', '#' },
-            { '#', '#', '#', '#', '#' }
-        }, 1, 1));
+                { '#', '#', '#', '#', '#' },
+                { '#', 'P', ' ', ' ', '#' },
+                { '#', ' ', 'B', 'G', '#' },
+                { '#', '#', '#', '#', '#' }
+            }, 1, 1));
 
             mapManager.AddMap(new GameMap("Level 2", new char[,] {
-            { '#', '#', '#', '#', '#', '#', '#' },
-            { '#', ' ', ' ', ' ', ' ', ' ', '#' },
-            { '#', 'P', ' ', ' ', ' ', ' ', '#' },
-            { '#', ' ', 'B', '#', 'G', ' ', '#' },
-            { '#', ' ', ' ', '#', ' ', ' ', '#' },
-            { '#', ' ', ' ', '#', ' ', ' ', '#' },
-            { '#', '#', '#', '#', '#', '#', '#' }
-        }, 2, 1));
+                { '#', '#', '#', '#', '#', '#', '#' },
+                { '#', ' ', ' ', ' ', ' ', ' ', '#' },
+                { '#', 'P', 'B', ' ', 'B', ' ', '#' },
+                { '#', ' ', 'G', '#', 'G', ' ', '#' },
+                { '#', ' ', ' ', '#', ' ', ' ', '#' },
+                { '#', ' ', ' ', '#', ' ', ' ', '#' },
+                { '#', '#', '#', '#', '#', '#', '#' }
+            }, 2, 1));
 
             mapManager.AddMap(new GameMap("Level 3", new char[,] {
-            { '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', ' ', ' ' },
-            { '#', 'G', 'G', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', '#', '#', '#' },
-            { '#', 'G', 'G', ' ', ' ', '#', ' ', 'B', ' ', ' ', 'B', ' ', ' ', '#' },
-            { '#', 'G', 'G', ' ', ' ', '#', 'B', '#', '#', '#', '#', ' ', ' ', '#' },
-            { '#', 'G', 'G', ' ', ' ', ' ', ' ', 'P', ' ', '#', '#', ' ', ' ', '#' },
-            { '#', 'G', 'G', ' ', ' ', '#', ' ', '#', ' ', ' ', 'B', ' ', '#', '#' },
-            { '#', '#', '#', '#', '#', '#', ' ', '#', '#', 'B', ' ', 'B', ' ', '#' },
-            { ' ', ' ', '#', ' ', 'B', ' ', ' ', 'B', ' ', 'B', ' ', 'B', ' ', '#' },
-            { ' ', ' ', '#', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', '#' },
-            { ' ', ' ', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#' }
-        }, 4, 7));
+                { ' ', ' ', '#', '#', '#', '#', '#', ' ' },
+                { '#', '#', '#', ' ', ' ', ' ', '#', ' ' },
+                { '#', 'G', 'P', 'B', ' ', ' ', '#', ' ' },
+                { '#', '#', '#', ' ', 'B', 'G', '#', ' ' },
+                { '#', 'G', '#', '#', 'B', ' ', '#', ' ' },
+                { '#', ' ', '#', ' ', 'G', ' ', '#', '#' },
+                { '#', 'B', ' ', 'A', 'B', 'B', 'G', '#' },
+                { '#', ' ', ' ', ' ', 'G', ' ', ' ', '#' },
+                { '#', '#', '#', '#', '#', '#', '#', '#' }
+            }, 2, 2));
+
+            mapManager.AddMap(new GameMap("Level 4", new char[,] {
+                { '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', ' ', ' ' },
+                { '#', 'G', 'G', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', '#', '#', '#' },
+                { '#', 'G', 'G', ' ', ' ', '#', ' ', 'B', ' ', ' ', 'B', ' ', ' ', '#' },
+                { '#', 'G', 'G', ' ', ' ', '#', 'B', '#', '#', '#', '#', ' ', ' ', '#' },
+                { '#', 'G', 'G', ' ', ' ', ' ', ' ', 'P', ' ', '#', '#', ' ', ' ', '#' },
+                { '#', 'G', 'G', ' ', ' ', '#', ' ', '#', ' ', ' ', 'B', ' ', '#', '#' },
+                { '#', '#', '#', '#', '#', '#', ' ', '#', '#', 'B', ' ', 'B', ' ', '#' },
+                { ' ', ' ', '#', ' ', 'B', ' ', ' ', 'B', ' ', 'B', ' ', 'B', ' ', '#' },
+                { ' ', ' ', '#', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', '#' },
+                { ' ', ' ', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#' }
+            }, 4, 7));
+
+            mapManager.AddMap(new GameMap("Level 5", new char[,] {
+                { ' ', '#', '#', '#', '#', '#', ' ', ' ' },
+                { ' ', '#', ' ', 'P', ' ', '#', '#', '#' },
+                { '#', '#', ' ', '#', 'B', ' ', ' ', '#' },
+                { '#', ' ', 'A', 'G', ' ', 'G', ' ', '#' },
+                { '#', ' ', ' ', 'B', 'B', ' ', '#', '#' },
+                { '#', '#', '#', ' ', '#', 'G', '#', ' ' },
+                { ' ', ' ', '#', ' ', ' ', ' ', '#', ' ' },
+                { ' ', ' ', '#', '#', '#', '#', '#', ' ' }
+            }, 1, 3));
 
         }
         private void UpdateFormSize()
@@ -102,18 +127,7 @@ namespace Level_1
             }
         }
 
-        private void NextLevel()
-        {
-            if (mapManager.MoveToNextMap())
-            {
-                LoadCurrentMap();
-            }
-            else
-            {
-                MessageBox.Show("All levels completed!", "Congratulations");
-                Application.Exit();
-            }
-        }
+        
         private void SokobanForm_KeyDown(object sender, KeyEventArgs e)
         {
             int dx = 0, dy = 0;
@@ -155,8 +169,12 @@ namespace Level_1
                 playerY = newY;
                 map[playerX, playerY] = 'P';
             }
-            else if (map[newX, newY] == 'B')
+            else if (map[newX, newY] == 'B'|| map[newX, newY] == 'A')
             {
+                if(map[newX, newY] == 'A')
+                {
+                    b_TrangThai = TrangThai.OnGoal;
+                }
                 // Kiểm tra nếu hộp có thể được đẩy
                 int boxNewX = newX + dx, boxNewY = newY + dy;
                 if(map[boxNewX, boxNewY] == 'G')
@@ -186,10 +204,10 @@ namespace Level_1
                         p_TrangThai = TrangThai.OutGoal;
                     }
                     map[newX, newY] = 'P';            // Vị trí mới của người chơi
-                    map[boxNewX, boxNewY] = 'B';      // Vị trí mới của hộp
+                    map[boxNewX, boxNewY] = 'A';      // Vị trí mới của hộp
                     playerX = newX;
                     playerY = newY;
-                    b_TrangThai = TrangThai.OnGoal;
+                    b_TrangThai = TrangThai.OutGoal;
                 }
                 if (map[boxNewX, boxNewY] == ' ' )
                 {
@@ -224,7 +242,7 @@ namespace Level_1
                     b_TrangThai = TrangThai.OutGoal;
                 }
             }
-
+            
             // Kiểm tra hoàn thành level
             CheckWinCondition();
 
@@ -251,7 +269,18 @@ namespace Level_1
             b_TrangThai = TrangThai.OutGoal;
             NextLevel();
         }
-
+        private void NextLevel()
+        {
+            if (mapManager.MoveToNextMap())
+            {
+                LoadCurrentMap();
+            }
+            else
+            {
+                MessageBox.Show("All levels completed!", "Congratulations");
+                Application.Exit();
+            }
+        }
 
         // Sự kiện vẽ giao diện trò chơi
         private void SokobanForm_Paint(object sender, PaintEventArgs e)
@@ -272,6 +301,8 @@ namespace Level_1
                         g.DrawImage(boxImage, rect);  // Vẽ hộp
                     else if (cell == 'G')
                         g.DrawImage(goalImage, rect);  // Vẽ mục tiêu
+                    else if (cell == 'A')
+                        g.DrawImage(placedBoxImage, rect);  // Vẽ hộp trên đích
                     else
                         g.FillRectangle(Brushes.White, rect); // Ô trống
 
