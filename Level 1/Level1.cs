@@ -13,21 +13,21 @@ namespace Level_1
     public partial class Level1 : Form
     {
         private char[,] map = {
-            //{ '#', '#', '#', '#', '#', '#', '#' },
-            //{ '#', ' ', 'G', 'G', 'G', ' ', '#' },
-            //{ '#', 'P', ' ', 'G', ' ', ' ', '#' },
-            //{ '#', ' ', 'B', 'G', 'G', 'G', '#' },
-            //{ '#', ' ', ' ', 'G', ' ', ' ', '#' },
-            //{ '#', ' ', ' ', 'G', ' ', ' ', '#' },
-            //{ '#', '#', '#', '#', '#', '#', '#' }
+            { '#', '#', '#', '#', '#', '#', '#' },
+            { '#', ' ', 'G', 'G', 'G', ' ', '#' },
+            { '#', ' ', ' ', 'G', ' ', ' ', '#' },
+            { '#', ' ', 'B', 'G', 'G', 'G', '#' },
+            { '#', ' ', ' ', 'G', ' ', ' ', '#' },
+            { '#', ' ', 'P', 'G', ' ', ' ', '#' },
+            { '#', '#', '#', '#', '#', '#', '#' }
 
-            { '#', '#', '#', '#', '#' },
-            { '#', 'P', ' ', ' ', '#' },
-            { '#', ' ', 'B', 'G', '#' },
-            { '#', '#', '#', '#', '#' }
+            //{ '#', '#', '#', '#', '#' },
+            //{ '#', 'P', ' ', ' ', '#' },
+            //{ '#', ' ', 'B', 'G', '#' },
+            //{ '#', '#', '#', '#', '#' }
         };
 
-        private int playerX = 1, playerY = 1; // Vị trí bắt đầu của người chơi
+        private int playerX = 5, playerY = 2; // Vị trí bắt đầu của người chơi
         private int cellSize = 64;           // Kích thước mỗi ô
         private Image wallImage;
         private Image boxImage;
@@ -166,10 +166,6 @@ namespace Level_1
             CheckWinCondition();
 
             this.Invalidate(); // Vẽ lại màn hình
-        }
-        private bool IsGoal(int x, int y)
-        {
-            return map[x, y] == 'G'  ; // Ô đó là mục tiêu hoặc người chơi trên mục tiêu
         }
 
 
