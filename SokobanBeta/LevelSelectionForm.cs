@@ -26,13 +26,6 @@ namespace SokobanBeta
             this.StartPosition = FormStartPosition.CenterScreen; // Căn giữa cửa sổ
         }
 
-        // Xử lý sự kiện khi nhấn vào một nút chọn màn chơi
-        //private void BtnLevel_Click(object sender, EventArgs e, int level)
-        //{
-        //    MessageBox.Show($"You selected Level {level}", $"Level {level}");
-        //    // Thêm logic chuyển sang màn chơi ở đây nếu cần
-        //    this.Close();
-        //}
         private void BtnLevel_Click(object sender, EventArgs e, int level)
         {
             // Tạo một form mới để chơi level tương ứng
@@ -53,9 +46,5 @@ namespace SokobanBeta
             this.Close(); // Đóng form hiện tại để quay lại menu chính
         }
 
-        //private void LevelSelectionForm_Load(object sender, EventArgs e)
-        //{
-        //    // Xử lý logic khi form được tải (nếu cần)
-        //}
     }
 }
