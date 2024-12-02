@@ -26,6 +26,7 @@ namespace Level_1
         private Stack<char[,]> mapHistory; // Lịch sử map
         private Stack<(int playerX, int playerY)> playerHistory; // Lịch sử vị trí người chơi
         enum TrangThai { OnGoal, OutGoal };
+        private Stack<TrangThai> playerStateHistory;
 
         TrangThai p_TrangThai = TrangThai.OutGoal; // Trạng thái của Player
         TrangThai b_TrangThai = TrangThai.OutGoal; // Trạng thái của Box
@@ -38,13 +39,14 @@ namespace Level_1
             steps = 0;
             mapHistory = new Stack<char[,]>();
             playerHistory = new Stack<(int, int)>();
-            playerImage = Image.FromFile("C:\\Users\\Truong Minh Hoang\\source\\repos\\SokobanBeta\\Level 1\\Resources\\player.png");
-            goalImage = Image.FromFile("C:\\Users\\Truong Minh Hoang\\source\\repos\\SokobanBeta\\Level 1\\Resources\\goal.png");
-            boxImage = Image.FromFile("C:\\Users\\Truong Minh Hoang\\source\\repos\\SokobanBeta\\Level 1\\Resources\\Box.png");
-            wallImage = Image.FromFile("C:\\Users\\Truong Minh Hoang\\source\\repos\\SokobanBeta\\Level 1\\Resources\\wall.png");
-            placedBoxImage = Image.FromFile("C:\\Users\\Truong Minh Hoang\\source\\repos\\SokobanBeta\\Level 1\\Resources\\placedBox.png");
+            playerImage = Image.FromFile("C:\\Users\\Administrator\\source\\repos\\SokobanBeta\\Level 1\\Resources\\player.png");
+            goalImage = Image.FromFile("C:\\Users\\Administrator\\source\\repos\\SokobanBeta\\Level 1\\Resources\\goal.png");
+            boxImage = Image.FromFile("C:\\Users\\Administrator\\source\\repos\\SokobanBeta\\Level 1\\Resources\\box.png");
+            wallImage = Image.FromFile("C:\\Users\\Administrator\\source\\repos\\SokobanBeta\\Level 1\\Resources\\wall.png");
+            placedBoxImage = Image.FromFile("C:\\Users\\Administrator\\source\\repos\\SokobanBeta\\Level 1\\Resources\\placedBox.png");
             LoadMaps();
             LoadCurrentMap();
+            playerStateHistory = new Stack<TrangThai>();
 
             //InitializeUI();
             this.KeyDown += SokobanForm_KeyDown;
@@ -141,6 +143,7 @@ namespace Level_1
                 this.Height = map.GetLength(0) * cellSize + 39; // Chiều cao form
             }
         }
+
         private void SokobanForm_KeyDown(object sender, KeyEventArgs e)
         {
             int dx = 0, dy = 0;
@@ -177,6 +180,9 @@ namespace Level_1
 
             // Lưu vị trí người chơi hiện tại
             playerHistory.Push((playerX, playerY));
+
+            // Lưu trạng thái người chơi hiện tại
+            playerStateHistory.Push(p_TrangThai);
         }
 
         private void UndoLastMove()
@@ -186,6 +192,9 @@ namespace Level_1
 
             // Phục hồi vị trí người chơi từ lịch sử
             (playerX, playerY) = playerHistory.Pop();
+
+            // Phục hồi trạng thái người chơi từ lịch sử
+            p_TrangThai = playerStateHistory.Pop();
 
             // Giảm số bước (nếu cần)
             if (steps > 0) steps--;
