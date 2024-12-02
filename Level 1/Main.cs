@@ -304,32 +304,50 @@ namespace Level_1
         // Hàm kiểm tra điều kiện chiến thắng
         private void CheckWinCondition()
         {
-                for (int x = 0; x < map.GetLength(0); x++)
+            // Kiểm tra xem có còn mục tiêu nào chưa hoàn thành không
+            for (int x = 0; x < map.GetLength(0); x++)
             {
                 for (int y = 0; y < map.GetLength(1); y++)
                 {
-                    if (map[x, y] == 'G'||p_TrangThai==TrangThai.OnGoal ) // Nếu còn mục tiêu chưa có hộp
+                    if (map[x, y] == 'G' || p_TrangThai == TrangThai.OnGoal) // Nếu còn mục tiêu chưa có hộp
                     {
                         return; // Chưa hoàn thành
                     }
                 }
             }
-            this.Invalidate();
+
             // Nếu tất cả mục tiêu đã được lấp đầy
+            this.Invalidate(); // Vẽ lại màn hình
             MessageBox.Show("You Win!!!", "Level Completed");
-            b_TrangThai = TrangThai.OutGoal;
-            NextLevel();
+
+            // Sau khi người chơi hoàn thành màn chơi, hỏi xem họ có muốn chơi tiếp không
+            DialogResult result = MessageBox.Show("Do you want to play the next level?", "Next Level", MessageBoxButtons.YesNo);
+
+            if (result == DialogResult.Yes)
+            {
+                // Chơi tiếp màn kế tiếp
+                b_TrangThai = TrangThai.OutGoal;  // Đặt lại trạng thái hộp
+                steps = 0;  // Đặt lại số bước về 0
+                NextLevel(); // Tải màn kế tiếp
+            }
+            else
+            {
+                // Nếu không chơi tiếp, quay lại LevelSelectionForm
+                this.Close(); // Đóng form game hiện tại
+            }
         }
+
+
         private void NextLevel()
         {
             if (mapManager.MoveToNextMap())
             {
-                LoadCurrentMap();
+                LoadCurrentMap(); // Tải map của màn tiếp theo
             }
             else
             {
                 MessageBox.Show("All levels completed!", "Congratulations");
-                Application.Exit();
+                Application.Exit(); // Nếu không còn màn nào, thoát game
             }
         }
 
