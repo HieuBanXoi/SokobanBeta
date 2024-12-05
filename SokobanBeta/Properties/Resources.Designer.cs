@@ -8,6 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Drawing;
+
 namespace SokobanBeta.Properties
 {
 
@@ -33,6 +35,8 @@ namespace SokobanBeta.Properties
         internal Resources()
         {
         }
+
+        public static Image SOKOBAN { get; internal set; }
 
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.

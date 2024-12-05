@@ -39,11 +39,11 @@ namespace Level_1
             steps = 0;
             mapHistory = new Stack<char[,]>();
             playerHistory = new Stack<(int, int)>();
-            playerImage = Image.FromFile("C:\\Users\\Administrator\\source\\repos\\SokobanBeta\\Level 1\\Resources\\player.png");
-            goalImage = Image.FromFile("C:\\Users\\Administrator\\source\\repos\\SokobanBeta\\Level 1\\Resources\\goal.png");
-            boxImage = Image.FromFile("C:\\Users\\Administrator\\source\\repos\\SokobanBeta\\Level 1\\Resources\\box.png");
-            wallImage = Image.FromFile("C:\\Users\\Administrator\\source\\repos\\SokobanBeta\\Level 1\\Resources\\wall.png");
-            placedBoxImage = Image.FromFile("C:\\Users\\Administrator\\source\\repos\\SokobanBeta\\Level 1\\Resources\\placedBox.png");
+            playerImage = Image.FromFile("C:\\Users\\Truong Minh Hoang\\source\\repos\\SokobanBeta\\Level 1\\Resources\\player.png");
+            goalImage = Image.FromFile("C:\\Users\\Truong Minh Hoang\\source\\repos\\SokobanBeta\\Level 1\\Resources\\goal.png");
+            boxImage = Image.FromFile("C:\\Users\\Truong Minh Hoang\\source\\repos\\SokobanBeta\\Level 1\\Resources\\box.png");
+            wallImage = Image.FromFile("C:\\Users\\Truong Minh Hoang\\source\\repos\\SokobanBeta\\Level 1\\Resources\\wall.png");
+            placedBoxImage = Image.FromFile("C:\\Users\\Truong Minh Hoang\\source\\repos\\SokobanBeta\\Level 1\\Resources\\placedBox.png");
             LoadMaps();
             LoadCurrentMap();
             playerStateHistory = new Stack<TrangThai>();

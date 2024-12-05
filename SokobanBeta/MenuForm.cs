@@ -1,14 +1,34 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace SokobanBeta
 {
     public partial class MenuForm : Form
     {
+        private Image backgroundImage;
+
         public MenuForm()
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
+            LoadBackgroundImage();
+        }
+
+        // Tải hình ảnh vào bộ nhớ
+        private void LoadBackgroundImage()
+        {
+            backgroundImage = Image.FromFile("C:\\Users\\Truong Minh Hoang\\Source\\Repos\\SokobanBeta\\SokobanBeta\\Resource\\SOKOBAN.png"); // Thay thế với đường dẫn tới hình ảnh của bạn
+        }
+        // Vẽ hình ảnh trong phương thức Paint
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            if (backgroundImage != null)
+            {
+                // Vẽ hình ảnh lên form, phù hợp với kích thước form
+                e.Graphics.DrawImage(backgroundImage, 0, 0, this.ClientSize.Width, this.ClientSize.Height);
+            }
         }
 
         // Sự kiện khi nhấn nút "Start Game"
@@ -30,6 +50,16 @@ namespace SokobanBeta
         private void BtnExit_Click(object sender, EventArgs e)
         {
             Application.Exit(); // Thoát ứng dụng
+        }
+
+        // Đảm bảo tài nguyên hình ảnh được giải phóng khi form đóng
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            if (backgroundImage != null)
+            {
+                backgroundImage.Dispose(); // Giải phóng tài nguyên hình ảnh
+            }
         }
     }
 }
