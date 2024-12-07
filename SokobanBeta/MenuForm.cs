@@ -18,7 +18,7 @@ namespace SokobanBeta
         // Tải hình ảnh vào bộ nhớ
         private void LoadBackgroundImage()
         {
-            backgroundImage = Image.FromFile("C:\\Users\\Truong Minh Hoang\\Source\\Repos\\SokobanBeta\\SokobanBeta\\Resource\\SOKOBAN.png"); // Thay thế với đường dẫn tới hình ảnh của bạn
+            backgroundImage = Properties.Resources.SOKOBAN;
         }
         // Vẽ hình ảnh trong phương thức Paint
         protected override void OnPaint(PaintEventArgs e)
