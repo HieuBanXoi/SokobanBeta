@@ -237,12 +237,16 @@ namespace Level_1
             }
             else if (map[newX, newY] == 'B' || map[newX, newY] == 'A')
             {
-                if (map[newX, newY] == 'A')
-                {
-                    b_TrangThai = TrangThai.OnGoal;
-                }
+                
                 // Kiểm tra nếu hộp có thể được đẩy
                 int boxNewX = newX + dx, boxNewY = newY + dy;
+                if (map[boxNewX, boxNewY] != '#')
+                {
+                    if (map[newX, newY] == 'A')
+                    {
+                        b_TrangThai = TrangThai.OnGoal;
+                    }
+                }
                 if (map[boxNewX, boxNewY] == 'G')
                 {
                     if (b_TrangThai == TrangThai.OnGoal)
