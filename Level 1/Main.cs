@@ -46,6 +46,8 @@ namespace Level_1
             placedBoxImage = Properties.Resources.placedBox;
 
             LoadMaps();
+
+            //mapManager.LoadMap("C:\\Users\\Administrator\\source\\repos\\SokobanBeta\\Level 1\\Resources\\maps.txt");
             LoadCurrentMap();
             playerStateHistory = new Stack<TrangThai>();
 
@@ -63,64 +65,136 @@ namespace Level_1
         }
 
 
+        //private void LoadMaps()
+        //{
+        //    mapManager = new GameMapManager();
+        //    mapManager.AddMap(new GameMap("Level 1", new char[,] {
+        //        { '#', '#', '#', '#', '#' },
+        //        { '#', 'P', ' ', ' ', '#' },
+        //        { '#', ' ', 'B', 'G', '#' },
+        //        { '#', '#', '#', '#', '#' }
+        //    }, 1, 1));
+
+        //    mapManager.AddMap(new GameMap("Level 2", new char[,] {
+        //        { '#', '#', '#', '#', '#', '#', '#' },
+        //        { '#', ' ', ' ', ' ', ' ', ' ', '#' },
+        //        { '#', 'P', 'B', ' ', 'B', ' ', '#' },
+        //        { '#', ' ', 'G', '#', 'G', ' ', '#' },
+        //        { '#', ' ', ' ', '#', ' ', ' ', '#' },
+        //        { '#', ' ', ' ', '#', ' ', ' ', '#' },
+        //        { '#', '#', '#', '#', '#', '#', '#' }
+        //    }, 2, 1));
+
+        //    mapManager.AddMap(new GameMap("Level 3", new char[,] {
+        //        { ' ', ' ', '#', '#', '#', '#', '#', ' ' },
+        //        { '#', '#', '#', ' ', ' ', ' ', '#', ' ' },
+        //        { '#', 'G', 'P', 'B', ' ', ' ', '#', ' ' },
+        //        { '#', '#', '#', ' ', 'B', 'G', '#', ' ' },
+        //        { '#', 'G', '#', '#', 'B', ' ', '#', ' ' },
+        //        { '#', ' ', '#', ' ', 'G', ' ', '#', '#' },
+        //        { '#', 'B', ' ', 'A', 'B', 'B', 'G', '#' },
+        //        { '#', ' ', ' ', ' ', 'G', ' ', ' ', '#' },
+        //        { '#', '#', '#', '#', '#', '#', '#', '#' }
+        //    }, 2, 2));
+
+        //    mapManager.AddMap(new GameMap("Level 4", new char[,] {
+        //        { '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', ' ', ' ' },
+        //        { '#', 'G', 'G', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', '#', '#', '#' },
+        //        { '#', 'G', 'G', ' ', ' ', '#', ' ', 'B', ' ', ' ', 'B', ' ', ' ', '#' },
+        //        { '#', 'G', 'G', ' ', ' ', '#', 'B', '#', '#', '#', '#', ' ', ' ', '#' },
+        //        { '#', 'G', 'G', ' ', ' ', ' ', ' ', 'P', ' ', '#', '#', ' ', ' ', '#' },
+        //        { '#', 'G', 'G', ' ', ' ', '#', ' ', '#', ' ', ' ', 'B', ' ', '#', '#' },
+        //        { '#', '#', '#', '#', '#', '#', ' ', '#', '#', 'B', ' ', 'B', ' ', '#' },
+        //        { ' ', ' ', '#', ' ', 'B', ' ', ' ', 'B', ' ', 'B', ' ', 'B', ' ', '#' },
+        //        { ' ', ' ', '#', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', '#' },
+        //        { ' ', ' ', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#' }
+        //    }, 4, 7));
+
+        //    mapManager.AddMap(new GameMap("Level 5", new char[,] {
+        //        { ' ', '#', '#', '#', '#', '#', ' ', ' ' },
+        //        { ' ', '#', ' ', 'P', ' ', '#', '#', '#' },
+        //        { '#', '#', ' ', '#', 'B', ' ', ' ', '#' },
+        //        { '#', ' ', 'A', 'G', ' ', 'G', ' ', '#' },
+        //        { '#', ' ', ' ', 'B', 'B', ' ', '#', '#' },
+        //        { '#', '#', '#', ' ', '#', 'G', '#', ' ' },
+        //        { ' ', ' ', '#', ' ', ' ', ' ', '#', ' ' },
+        //        { ' ', ' ', '#', '#', '#', '#', '#', ' ' }
+        //    }, 1, 3));
+
+        //}
+        private void LoadMapsFromFile(string filePath)
+        {
+            try
+            {
+                // Đọc tất cả dòng từ file
+                string[] lines = System.IO.File.ReadAllLines(filePath);
+
+                // Tìm tên map (dòng đầu tiên)
+                string mapName = lines[0].Replace("# Map ", "").Trim();
+
+                // Parse bản đồ
+                List<char[]> mapDataList = new List<char[]>();
+                int playerX = 0, playerY = 0;
+                bool foundPlayerStart = false;
+
+                for (int i = 1; i < lines.Length; i++)
+                {
+                    string line = lines[i].Trim();
+                    if (string.IsNullOrEmpty(line)) continue;
+
+                    // Nếu là tọa độ bắt đầu
+                    if (line.Contains(","))
+                    {
+                        string[] startCoords = line.Split(',');
+                        playerX = int.Parse(startCoords[0]);
+                        playerY = int.Parse(startCoords[1]);
+                        foundPlayerStart = true;
+                        break;
+                    }
+
+                    mapDataList.Add(line.ToCharArray());
+                }
+
+                if (!foundPlayerStart)
+                {
+                    throw new Exception("Player start position not defined in map file.");
+                }
+
+                // Chuyển List<char[]> thành mảng 2 chiều
+                int rows = mapDataList.Count;
+                int cols = mapDataList[0].Length;
+                char[,] mapData = new char[rows, cols];
+                for (int r = 0; r < rows; r++)
+                {
+                    for (int c = 0; c < cols; c++)
+                    {
+                        mapData[r, c] = mapDataList[r][c];
+                    }
+                }
+
+                // Thêm bản đồ vào GameMapManager
+                mapManager.AddMap(new GameMap(mapName, mapData, playerX, playerY));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error loading map from file: {ex.Message}");
+            }
+        }
+
+        // Sử dụng hàm LoadMapsFromFile trong LoadMaps
         private void LoadMaps()
         {
             mapManager = new GameMapManager();
-            mapManager.AddMap(new GameMap("Level 1", new char[,] {
-                { '#', '#', '#', '#', '#' },
-                { '#', 'P', ' ', ' ', '#' },
-                { '#', ' ', 'B', 'G', '#' },
-                { '#', '#', '#', '#', '#' }
-            }, 1, 1));
 
-            mapManager.AddMap(new GameMap("Level 2", new char[,] {
-                { '#', '#', '#', '#', '#', '#', '#' },
-                { '#', ' ', ' ', ' ', ' ', ' ', '#' },
-                { '#', 'P', 'B', ' ', 'B', ' ', '#' },
-                { '#', ' ', 'G', '#', 'G', ' ', '#' },
-                { '#', ' ', ' ', '#', ' ', ' ', '#' },
-                { '#', ' ', ' ', '#', ' ', ' ', '#' },
-                { '#', '#', '#', '#', '#', '#', '#' }
-            }, 2, 1));
-
-            mapManager.AddMap(new GameMap("Level 3", new char[,] {
-                { ' ', ' ', '#', '#', '#', '#', '#', ' ' },
-                { '#', '#', '#', ' ', ' ', ' ', '#', ' ' },
-                { '#', 'G', 'P', 'B', ' ', ' ', '#', ' ' },
-                { '#', '#', '#', ' ', 'B', 'G', '#', ' ' },
-                { '#', 'G', '#', '#', 'B', ' ', '#', ' ' },
-                { '#', ' ', '#', ' ', 'G', ' ', '#', '#' },
-                { '#', 'B', ' ', 'A', 'B', 'B', 'G', '#' },
-                { '#', ' ', ' ', ' ', 'G', ' ', ' ', '#' },
-                { '#', '#', '#', '#', '#', '#', '#', '#' }
-            }, 2, 2));
-
-            mapManager.AddMap(new GameMap("Level 4", new char[,] {
-                { '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', ' ', ' ' },
-                { '#', 'G', 'G', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', '#', '#', '#' },
-                { '#', 'G', 'G', ' ', ' ', '#', ' ', 'B', ' ', ' ', 'B', ' ', ' ', '#' },
-                { '#', 'G', 'G', ' ', ' ', '#', 'B', '#', '#', '#', '#', ' ', ' ', '#' },
-                { '#', 'G', 'G', ' ', ' ', ' ', ' ', 'P', ' ', '#', '#', ' ', ' ', '#' },
-                { '#', 'G', 'G', ' ', ' ', '#', ' ', '#', ' ', ' ', 'B', ' ', '#', '#' },
-                { '#', '#', '#', '#', '#', '#', ' ', '#', '#', 'B', ' ', 'B', ' ', '#' },
-                { ' ', ' ', '#', ' ', 'B', ' ', ' ', 'B', ' ', 'B', ' ', 'B', ' ', '#' },
-                { ' ', ' ', '#', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', '#' },
-                { ' ', ' ', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#' }
-            }, 4, 7));
-
-            mapManager.AddMap(new GameMap("Level 5", new char[,] {
-                { ' ', '#', '#', '#', '#', '#', ' ', ' ' },
-                { ' ', '#', ' ', 'P', ' ', '#', '#', '#' },
-                { '#', '#', ' ', '#', 'B', ' ', ' ', '#' },
-                { '#', ' ', 'A', 'G', ' ', 'G', ' ', '#' },
-                { '#', ' ', ' ', 'B', 'B', ' ', '#', '#' },
-                { '#', '#', '#', ' ', '#', 'G', '#', ' ' },
-                { ' ', ' ', '#', ' ', ' ', ' ', '#', ' ' },
-                { ' ', ' ', '#', '#', '#', '#', '#', ' ' }
-            }, 1, 3));
+            // Tải bản đồ từ file
+            LoadMapsFromFile("Resources\\Level1.txt");
+            LoadMapsFromFile("Resources\\Level2.txt");
+            LoadMapsFromFile("Resources\\Level3.txt");
+            LoadMapsFromFile("Resources\\Level4.txt");
+            LoadMapsFromFile("Resources\\Level5.txt");
 
         }
-        
+
         private void LoadCurrentMap()
         {
             GameMap currentMap = mapManager.GetCurrentMap();

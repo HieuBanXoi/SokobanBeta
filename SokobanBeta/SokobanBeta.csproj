@@ -139,5 +139,10 @@
   <ItemGroup>
     <None Include="Resources\SOKOBAN.png" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Level2.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
