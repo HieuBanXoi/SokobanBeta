@@ -35,6 +35,7 @@ namespace SokobanBeta
         private void BtnStart_Click(object sender, EventArgs e)
         {
             // Mở form LevelSelectionForm khi nhấn Start Game
+            NavigationHelper.PreviousForm = this;
             LevelSelectionForm levelSelectionForm = new LevelSelectionForm();
             levelSelectionForm.Show();  // Hiển thị form chọn màn chơi
             this.Hide();  // Ẩn MenuForm
@@ -43,7 +44,7 @@ namespace SokobanBeta
         // Sự kiện khi nhấn nút "Instructions"
         private void BtnInstructions_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Use the arrow keys to move the player and push boxes to the goals.", "Instructions");
+            MessageBox.Show("Use the arrow keys to move the player and push boxes to the goals.\nPress z to undo last move.", "Instructions");
         }
 
         // Sự kiện khi nhấn nút "Exit"
@@ -60,6 +61,10 @@ namespace SokobanBeta
             {
                 backgroundImage.Dispose(); // Giải phóng tài nguyên hình ảnh
             }
+        }
+        public static class NavigationHelper
+        {
+            public static Form PreviousForm { get; set; }
         }
     }
 }

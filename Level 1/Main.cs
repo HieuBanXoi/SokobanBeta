@@ -45,7 +45,6 @@ namespace Level_1
             wallImage = Properties.Resources.wall;
             placedBoxImage = Properties.Resources.placedBox;
 
-            //placedBoxImage = Image.FromFile("C:\\Users\\Administrator\\source\\repos\\SokobanBeta\\Level 1\\Resources\\placedBox.png");
             LoadMaps();
             LoadCurrentMap();
             playerStateHistory = new Stack<TrangThai>();

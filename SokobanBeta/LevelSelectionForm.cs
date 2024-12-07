@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Level_1;
+using static SokobanBeta.MenuForm;
 
 namespace SokobanBeta
 {
@@ -40,10 +41,15 @@ namespace SokobanBeta
             gameForm.FormClosed += (s, args) => this.Show();
         }
 
+
         // Xử lý sự kiện khi nhấn nút "Back"
         private void BtnBack_Click(object sender, EventArgs e)
         {
-            this.Close(); // Đóng form hiện tại để quay lại menu chính
+            if (NavigationHelper.PreviousForm != null)
+            {
+                NavigationHelper.PreviousForm.Show(); // Hiển thị Form trước đó
+                this.Close();
+            }
         }
 
     }
