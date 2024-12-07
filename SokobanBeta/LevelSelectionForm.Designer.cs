@@ -31,8 +31,20 @@ namespace SokobanBeta
                 Button btnLevel = new Button
                 {
                     Text = $"Level {level}",
-                    Size = new System.Drawing.Size(200, 50),
-                    Location = new System.Drawing.Point(100, 50 + (level - 1) * 60)
+                    Size = new System.Drawing.Size(200, 100),
+                    Location = new System.Drawing.Point(300 + (level - 1) * 500, 50)
+                };
+                btnLevel.Click += (sender, e) => BtnLevel_Click(sender, e, level);
+                this.Controls.Add(btnLevel);
+            }
+            for (int i = 3; i <= 5; i++)
+            {
+                int level = i; // Biến tạm để giữ giá trị chính xác cho mỗi nút
+                Button btnLevel = new Button
+                {
+                    Text = $"Level {level}",
+                    Size = new System.Drawing.Size(200, 100),
+                    Location = new System.Drawing.Point(150 + (level - 3) * 400, 200)
                 };
                 btnLevel.Click += (sender, e) => BtnLevel_Click(sender, e, level);
                 this.Controls.Add(btnLevel);
@@ -43,7 +55,7 @@ namespace SokobanBeta
             {
                 Text = "Back",
                 Size = new System.Drawing.Size(200, 50),
-                Location = new System.Drawing.Point(100, 380)
+                Location = new System.Drawing.Point(500, 380)
             };
             btnBack.Click += BtnBack_Click;
             this.Controls.Add(btnBack);
