@@ -231,7 +231,10 @@ namespace MainSys
                 UndoLastMove();
                 return;
             }
-
+            else
+            {
+                return; // Bỏ qua các phím khác
+            }
             // Lưu trạng thái trước khi di chuyển
             SaveCurrentState();
             // Xử lý di chuyển người chơi
@@ -278,6 +281,10 @@ namespace MainSys
         }
         private bool ProcessMove(int newX, int newY, int dx, int dy)
         {
+            if (map[newX, newY] == '#')
+            {
+                return false; // Không thực hiện di chuyển
+            }
             // Kiểm tra di chuyển hợp lệ
             if (map[newX, newY] == 'G')
             {
@@ -320,6 +327,10 @@ namespace MainSys
                     {
                         b_TrangThai = TrangThai.OnGoal;
                     }
+                }
+                if (map[boxNewX, boxNewY] == '#')
+                {
+                    return false;
                 }
                 if (map[boxNewX, boxNewY] == 'G')
                 {
