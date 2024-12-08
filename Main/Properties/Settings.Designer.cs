@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Home.Properties
+namespace MainSys.Properties
 {
 
 

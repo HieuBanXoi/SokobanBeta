@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 
-namespace Level_1
+namespace MainSys
 {
     partial class Main
     {

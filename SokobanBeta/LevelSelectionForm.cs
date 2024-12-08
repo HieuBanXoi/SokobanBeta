@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using Level_1;
+using MainSys;
 using static SokobanBeta.MenuForm;
 
 namespace SokobanBeta

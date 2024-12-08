@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Level_1.Properties {
+namespace MainSys.Properties {
     using System;
     
     
@@ -77,6 +77,106 @@ namespace Level_1.Properties {
             get {
                 object obj = ResourceManager.GetObject("goal", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to # Map Level 1
+        ///#####
+        ///#P  #
+        ///# B #
+        ///#  G#
+        ///#####
+        ///
+        ///1,1
+        ///.
+        /// </summary>
+        internal static string Level1 {
+            get {
+                return ResourceManager.GetString("Level1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to # Map Level 2
+        ///#######
+        ///#     #
+        ///#PB B #
+        ///# G#G #
+        ///#  #  #
+        ///#  #  #
+        ///#######
+        ///
+        ///2,1
+        ///.
+        /// </summary>
+        internal static string Level2 {
+            get {
+                return ResourceManager.GetString("Level2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to # Map Level 3
+        ///########
+        ///###   ##
+        ///#GPB  ##
+        ///### BG##
+        ///#G##B ##
+        ///# # G ##
+        ///#B ABBG#
+        ///#   G  #
+        ///########
+        ///
+        ///2,2
+        ///.
+        /// </summary>
+        internal static string Level3 {
+            get {
+                return ResourceManager.GetString("Level3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to # Map Level 4
+        ///##############
+        ///#GG  #     ###
+        ///#GG  # B  B  #
+        ///#GG  #B####  #
+        ///#GG    P ##  #
+        ///#GG  # #  B ##
+        ///###### ##B B #
+        ///### B  B B B #
+        ///###    #     #
+        ///##############
+        ///
+        ///
+        ///4,7
+        ///.
+        /// </summary>
+        internal static string Level4 {
+            get {
+                return ResourceManager.GetString("Level4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to # Map Level 5
+        ///########
+        ///## P ###
+        ///## #B  #
+        ///# AG G #
+        ///#  BB ##
+        ///### #G##
+        ///###   ##
+        ///########
+        ///
+        ///1,3
+        ///.
+        /// </summary>
+        internal static string Level5 {
+            get {
+                return ResourceManager.GetString("Level5", resourceCulture);
             }
         }
         
