@@ -1,30 +1,58 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Drawing;
 using MainSys;
-using static SokobanBeta.MenuForm;
 
 namespace SokobanBeta
 {
     public partial class LevelSelectionForm : Form
     {
+        private Image backgroundImage; // Thuộc tính để chứa ảnh nền
+
         public LevelSelectionForm()
         {
             InitializeComponent(); // Gọi phương thức InitializeComponent từ file Designer
-            SetWindowSize();       // Gọi phương thức để thiết lập kích thước cửa sổ
+            SetWindowSize();       // Thiết lập kích thước cửa sổ
+            LoadBackgroundImage(); // Tải hình ảnh nền
         }
 
         // Phương thức thiết lập kích thước cửa sổ
         private void SetWindowSize()
         {
-            var screenWidth = Screen.PrimaryScreen.Bounds.Width;
-            var screenHeight = Screen.PrimaryScreen.Bounds.Height;
-
-            int windowWidth = (int)(screenWidth * 0.8);  // 80% chiều rộng màn hình
-            int windowHeight = (int)(screenHeight * 0.6); // 60% chiều cao màn hình
-
-            this.Width = windowWidth;
-            this.Height = windowHeight;
+            this.Width = 1000;  // Đặt chiều rộng cửa sổ nhỏ hơn
+            this.Height = 600;  // Đặt chiều cao cửa sổ
             this.StartPosition = FormStartPosition.CenterScreen; // Căn giữa cửa sổ
+        }
+
+        // Tải hình ảnh nền từ đường dẫn
+        private void LoadBackgroundImage()
+        {
+            try
+            {
+                string imagePath = @"C:\Users\Truong Minh Hoang\Source\Repos\SokobanBeta\SokobanBeta\Resources\SOKOBAN _Slection_Level.png"; // Đường dẫn đến hình ảnh
+                if (System.IO.File.Exists(imagePath))
+                {
+                    backgroundImage = Image.FromFile(imagePath);
+                }
+                else
+                {
+                    MessageBox.Show("Hình ảnh không tồn tại: " + imagePath, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Không thể tải hình ảnh: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // Vẽ hình ảnh nền trong phương thức Paint
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            if (backgroundImage != null)
+            {
+                e.Graphics.DrawImage(backgroundImage, 0, 0, this.ClientSize.Width, this.ClientSize.Height); // Vẽ hình ảnh lên form
+            }
         }
 
         private void BtnLevel_Click(object sender, EventArgs e, int level)
@@ -41,16 +69,10 @@ namespace SokobanBeta
             gameForm.FormClosed += (s, args) => this.Show();
         }
 
-
         // Xử lý sự kiện khi nhấn nút "Back"
         private void BtnBack_Click(object sender, EventArgs e)
         {
-            if (NavigationHelper.PreviousForm != null)
-            {
-                NavigationHelper.PreviousForm.Show(); // Hiển thị Form trước đó
-                this.Close();
-            }
+            this.Close(); // Đóng form hiện tại để quay lại menu chính
         }
-
     }
 }

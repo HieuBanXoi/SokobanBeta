@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace SokobanBeta
 {
@@ -24,47 +23,51 @@ namespace SokobanBeta
         {
             this.SuspendLayout();
 
-            // Thêm các nút chọn màn chơi
-            for (int i = 1; i <= 5; i++)
-            {
-                int level = i; // Biến tạm để giữ giá trị chính xác cho mỗi nút
-                Button btnLevel = new Button
-                {
-                    Text = $"Level {level}",
-                    Size = new System.Drawing.Size(200, 100),
-                    Location = new System.Drawing.Point(300 + (level - 1) * 500, 50)
-                };
-                btnLevel.Click += (sender, e) => BtnLevel_Click(sender, e, level);
-                this.Controls.Add(btnLevel);
-            }
-            for (int i = 3; i <= 5; i++)
-            {
-                int level = i; // Biến tạm để giữ giá trị chính xác cho mỗi nút
-                Button btnLevel = new Button
-                {
-                    Text = $"Level {level}",
-                    Size = new System.Drawing.Size(200, 100),
-                    Location = new System.Drawing.Point(150 + (level - 3) * 400, 200)
-                };
-                btnLevel.Click += (sender, e) => BtnLevel_Click(sender, e, level);
-                this.Controls.Add(btnLevel);
-            }
+            // Kích thước các nút
+            int buttonWidth = 200;
+            int buttonHeight = 50;
+            int verticalSpacing = 20; // Khoảng cách giữa các nút theo chiều dọc
+            int moveUpPixels = 38; // Di chuyển các nút lên trên 0.5cm (khoảng 38 pixels)
+            int moveDownPixels = 75; // Di chuyển nút "Back" xuống dưới 1cm (khoảng 75 pixels)
 
-            // Thêm nút "Back"
+            // Vị trí cố định của các nút (dễ dàng thay đổi nếu cần)
+            int startX = 400; // Vị trí bắt đầu của các nút từ trái sang phải
+            int startY = 150 + moveUpPixels; // Nút Level 1 và Level 2 sẽ được di chuyển lên trên 0.5cm (38 pixels)
+
+            // Nút Level 1
+            Button btnLevel1 = new Button
+            {
+                Text = "Level 1",
+                Size = new System.Drawing.Size(buttonWidth, buttonHeight),
+                Location = new System.Drawing.Point(startX, startY) // Vị trí cố định
+            };
+            btnLevel1.Click += (sender, e) => BtnLevel_Click(sender, e, 1);
+            this.Controls.Add(btnLevel1);
+
+            // Nút Level 2
+            Button btnLevel2 = new Button
+            {
+                Text = "Level 2",
+                Size = new System.Drawing.Size(buttonWidth, buttonHeight),
+                Location = new System.Drawing.Point(startX, startY + buttonHeight + verticalSpacing) // Cộng thêm chiều cao của nút và khoảng cách
+            };
+            btnLevel2.Click += (sender, e) => BtnLevel_Click(sender, e, 2);
+            this.Controls.Add(btnLevel2);
+
+            // Nút "Back"
             Button btnBack = new Button
             {
                 Text = "Back",
-                Size = new System.Drawing.Size(200, 50),
-                Location = new System.Drawing.Point(500, 380)
+                Size = new System.Drawing.Size(buttonWidth, buttonHeight),
+                Location = new System.Drawing.Point(startX, startY + (2 * buttonHeight) + (2 * verticalSpacing) + moveDownPixels) // Nút "Back" xuống dưới 1cm (75 pixels)
             };
             btnBack.Click += BtnBack_Click;
             this.Controls.Add(btnBack);
 
             // Thuộc tính form
-            this.ClientSize = new System.Drawing.Size(400, 500);
+            this.ClientSize = new System.Drawing.Size(1000, 600); // Kích thước cửa sổ
             this.Name = "LevelSelectionForm";
             this.Text = "Select Level";
-            //this.Load += new System.EventHandler(this.LevelSelectionForm_Load);
 
             this.ResumeLayout(false);
         }
