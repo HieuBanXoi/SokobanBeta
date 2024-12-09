@@ -189,9 +189,9 @@ namespace MainSys
             // Tải bản đồ từ file
             LoadMapsFromFile("Resources\\Level1.txt");
             LoadMapsFromFile("Resources\\Level2.txt");
-            LoadMapsFromFile("Resources\\Level3.txt");
-            LoadMapsFromFile("Resources\\Level4.txt");
-            LoadMapsFromFile("Resources\\Level5.txt");
+            //LoadMapsFromFile("Resources\\Level3.txt");
+            //LoadMapsFromFile("Resources\\Level4.txt");
+            //LoadMapsFromFile("Resources\\Level5.txt");
 
         }
 

@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using System.Drawing;
 using MainSys;
+using static SokobanBeta.MenuForm;
 
 namespace SokobanBeta
 {
@@ -25,23 +26,35 @@ namespace SokobanBeta
         }
 
         // Tải hình ảnh nền từ đường dẫn
+        //private void LoadBackgroundImage()
+        //{
+        //    try
+        //    {
+        //        string imagePath = Properties.Resources.SOKOBAN__Slection_Level; // Đường dẫn đến hình ảnh
+        //        if (System.IO.File.Exists(imagePath))
+        //        {
+        //            backgroundImage = Image.FromFile(imagePath);
+        //        }
+        //        else
+        //        {
+        //            MessageBox.Show("Hình ảnh không tồn tại: " + imagePath, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show("Không thể tải hình ảnh: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //    }
+        //}
         private void LoadBackgroundImage()
         {
-            try
+            backgroundImage = Properties.Resources.SOKOBAN__Slection_Level;
+        }
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            if (backgroundImage != null)
             {
-                string imagePath = @"C:\Users\Truong Minh Hoang\Source\Repos\SokobanBeta\SokobanBeta\Resources\SOKOBAN _Slection_Level.png"; // Đường dẫn đến hình ảnh
-                if (System.IO.File.Exists(imagePath))
-                {
-                    backgroundImage = Image.FromFile(imagePath);
-                }
-                else
-                {
-                    MessageBox.Show("Hình ảnh không tồn tại: " + imagePath, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Không thể tải hình ảnh: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                backgroundImage.Dispose(); // Giải phóng tài nguyên hình ảnh
             }
         }
 
@@ -72,7 +85,11 @@ namespace SokobanBeta
         // Xử lý sự kiện khi nhấn nút "Back"
         private void BtnBack_Click(object sender, EventArgs e)
         {
-            this.Close(); // Đóng form hiện tại để quay lại menu chính
+            if (NavigationHelper.PreviousForm != null)
+            {
+                NavigationHelper.PreviousForm.Show(); // Hiển thị Form trước đó
+                this.Close();
+            }
         }
     }
 }
