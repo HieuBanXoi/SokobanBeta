@@ -25,26 +25,6 @@ namespace SokobanBeta
             this.StartPosition = FormStartPosition.CenterScreen; // Căn giữa cửa sổ
         }
 
-        // Tải hình ảnh nền từ đường dẫn
-        //private void LoadBackgroundImage()
-        //{
-        //    try
-        //    {
-        //        string imagePath = Properties.Resources.SOKOBAN__Slection_Level; // Đường dẫn đến hình ảnh
-        //        if (System.IO.File.Exists(imagePath))
-        //        {
-        //            backgroundImage = Image.FromFile(imagePath);
-        //        }
-        //        else
-        //        {
-        //            MessageBox.Show("Hình ảnh không tồn tại: " + imagePath, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show("Không thể tải hình ảnh: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //    }
-        //}
         private void LoadBackgroundImage()
         {
             backgroundImage = Properties.Resources.SOKOBAN__Slection_Level;

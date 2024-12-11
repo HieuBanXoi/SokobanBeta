@@ -46,8 +46,6 @@ namespace MainSys
             placedBoxImage = Properties.Resources.placedBox;
 
             LoadMaps();
-
-            //mapManager.LoadMap("C:\\Users\\Administrator\\source\\repos\\SokobanBeta\\Level 1\\Resources\\maps.txt");
             LoadCurrentMap();
             playerStateHistory = new Stack<TrangThai>();
 
@@ -64,64 +62,6 @@ namespace MainSys
             LoadCurrentMap(); // Tải map của level đó
         }
 
-
-        //private void LoadMaps()
-        //{
-        //    mapManager = new GameMapManager();
-        //    mapManager.AddMap(new GameMap("Level 1", new char[,] {
-        //        { '#', '#', '#', '#', '#' },
-        //        { '#', 'P', ' ', ' ', '#' },
-        //        { '#', ' ', 'B', 'G', '#' },
-        //        { '#', '#', '#', '#', '#' }
-        //    }, 1, 1));
-
-        //    mapManager.AddMap(new GameMap("Level 2", new char[,] {
-        //        { '#', '#', '#', '#', '#', '#', '#' },
-        //        { '#', ' ', ' ', ' ', ' ', ' ', '#' },
-        //        { '#', 'P', 'B', ' ', 'B', ' ', '#' },
-        //        { '#', ' ', 'G', '#', 'G', ' ', '#' },
-        //        { '#', ' ', ' ', '#', ' ', ' ', '#' },
-        //        { '#', ' ', ' ', '#', ' ', ' ', '#' },
-        //        { '#', '#', '#', '#', '#', '#', '#' }
-        //    }, 2, 1));
-
-        //    mapManager.AddMap(new GameMap("Level 3", new char[,] {
-        //        { ' ', ' ', '#', '#', '#', '#', '#', ' ' },
-        //        { '#', '#', '#', ' ', ' ', ' ', '#', ' ' },
-        //        { '#', 'G', 'P', 'B', ' ', ' ', '#', ' ' },
-        //        { '#', '#', '#', ' ', 'B', 'G', '#', ' ' },
-        //        { '#', 'G', '#', '#', 'B', ' ', '#', ' ' },
-        //        { '#', ' ', '#', ' ', 'G', ' ', '#', '#' },
-        //        { '#', 'B', ' ', 'A', 'B', 'B', 'G', '#' },
-        //        { '#', ' ', ' ', ' ', 'G', ' ', ' ', '#' },
-        //        { '#', '#', '#', '#', '#', '#', '#', '#' }
-        //    }, 2, 2));
-
-        //    mapManager.AddMap(new GameMap("Level 4", new char[,] {
-        //        { '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', ' ', ' ' },
-        //        { '#', 'G', 'G', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', '#', '#', '#' },
-        //        { '#', 'G', 'G', ' ', ' ', '#', ' ', 'B', ' ', ' ', 'B', ' ', ' ', '#' },
-        //        { '#', 'G', 'G', ' ', ' ', '#', 'B', '#', '#', '#', '#', ' ', ' ', '#' },
-        //        { '#', 'G', 'G', ' ', ' ', ' ', ' ', 'P', ' ', '#', '#', ' ', ' ', '#' },
-        //        { '#', 'G', 'G', ' ', ' ', '#', ' ', '#', ' ', ' ', 'B', ' ', '#', '#' },
-        //        { '#', '#', '#', '#', '#', '#', ' ', '#', '#', 'B', ' ', 'B', ' ', '#' },
-        //        { ' ', ' ', '#', ' ', 'B', ' ', ' ', 'B', ' ', 'B', ' ', 'B', ' ', '#' },
-        //        { ' ', ' ', '#', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', '#' },
-        //        { ' ', ' ', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#' }
-        //    }, 4, 7));
-
-        //    mapManager.AddMap(new GameMap("Level 5", new char[,] {
-        //        { ' ', '#', '#', '#', '#', '#', ' ', ' ' },
-        //        { ' ', '#', ' ', 'P', ' ', '#', '#', '#' },
-        //        { '#', '#', ' ', '#', 'B', ' ', ' ', '#' },
-        //        { '#', ' ', 'A', 'G', ' ', 'G', ' ', '#' },
-        //        { '#', ' ', ' ', 'B', 'B', ' ', '#', '#' },
-        //        { '#', '#', '#', ' ', '#', 'G', '#', ' ' },
-        //        { ' ', ' ', '#', ' ', ' ', ' ', '#', ' ' },
-        //        { ' ', ' ', '#', '#', '#', '#', '#', ' ' }
-        //    }, 1, 3));
-
-        //}
         private void LoadMapsFromFile(string filePath)
         {
             try
@@ -231,6 +171,11 @@ namespace MainSys
                 UndoLastMove();
                 return;
             }
+            else if (e.KeyCode == Keys.R) // Lùi lại (phím Z)
+            {
+                Restart();
+                return;
+            }
             else
             {
                 return; // Bỏ qua các phím khác
@@ -250,6 +195,17 @@ namespace MainSys
 
             this.Invalidate(); // Vẽ lại màn hình
         }
+
+        private void Restart()
+        {
+            int allsteps = steps;
+            for (int i = 1; i <= allsteps; i++)
+            {
+                UndoLastMove();
+            }
+        }
+
+
         private void SaveCurrentState()
         {
             // Lưu map hiện tại
@@ -318,7 +274,6 @@ namespace MainSys
             }
             else if (map[newX, newY] == 'B' || map[newX, newY] == 'A')
             {
-                
                 // Kiểm tra nếu hộp có thể được đẩy
                 int boxNewX = newX + dx, boxNewY = newY + dy;
                 if (map[boxNewX, boxNewY] != '#')
@@ -327,10 +282,6 @@ namespace MainSys
                     {
                         b_TrangThai = TrangThai.OnGoal;
                     }
-                }
-                if (map[boxNewX, boxNewY] == '#')
-                {
-                    return false;
                 }
                 if (map[boxNewX, boxNewY] == 'G')
                 {
@@ -363,6 +314,7 @@ namespace MainSys
                     playerX = newX;
                     playerY = newY;
                     b_TrangThai = TrangThai.OutGoal;
+                    return true;
                 }
                 if (map[boxNewX, boxNewY] == ' ')
                 {
@@ -395,9 +347,14 @@ namespace MainSys
                     playerX = newX;
                     playerY = newY;
                     b_TrangThai = TrangThai.OutGoal;
+                    return true;
+                }
+                if (map[boxNewX, boxNewY] == '#' || map[boxNewX, boxNewY] == 'B' || map[boxNewX, boxNewY] == 'A')
+                {
+                    return false;
                 }
             }
-
+            
             return true; // Trả về true nếu di chuyển hợp lệ
         }
         // Hàm kiểm tra điều kiện chiến thắng
