@@ -33,12 +33,19 @@
             // 
             // Btn_Back
             // 
-            this.Btn_Back.Location = new System.Drawing.Point(677, 374);
+            this.Btn_Back.BackColor = System.Drawing.Color.Transparent;
+            this.Btn_Back.CausesValidation = false;
+            this.Btn_Back.FlatAppearance.BorderSize = 0;
+            this.Btn_Back.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.Btn_Back.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.Btn_Back.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Btn_Back.ForeColor = System.Drawing.Color.Transparent;
+            this.Btn_Back.Location = new System.Drawing.Point(630, 366);
             this.Btn_Back.Name = "Btn_Back";
-            this.Btn_Back.Size = new System.Drawing.Size(90, 26);
+            this.Btn_Back.Size = new System.Drawing.Size(136, 50);
             this.Btn_Back.TabIndex = 0;
-            this.Btn_Back.Text = "Back";
-            this.Btn_Back.UseVisualStyleBackColor = true;
+            this.Btn_Back.TabStop = false;
+            this.Btn_Back.UseVisualStyleBackColor = false;
             this.Btn_Back.Click += new System.EventHandler(this.Btn_Back_Click);
             // 
             // Instructions
