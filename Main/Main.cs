@@ -35,7 +35,7 @@ namespace MainSys
         {
             InitializeComponent();
 
-            this.DoubleBuffered = true;
+            this.DoubleBuffered = true; // Màn hình không bị chớp mỗi khi di chuyển nhân vật
             steps = 0;
             mapHistory = new Stack<char[,]>();
             playerHistory = new Stack<(int, int)>();
@@ -162,10 +162,10 @@ namespace MainSys
         private void SokobanForm_KeyDown(object sender, KeyEventArgs e)
         {
             int dx = 0, dy = 0;
-            if (e.KeyCode == Keys.Up) dx = -1;
-            else if (e.KeyCode == Keys.Down) dx = 1;
-            else if (e.KeyCode == Keys.Left) dy = -1;
-            else if (e.KeyCode == Keys.Right) dy = 1;
+            if (e.KeyCode == Keys.Up || e.KeyCode == Keys.W) dx = -1;
+            else if (e.KeyCode == Keys.Down || e.KeyCode == Keys.S) dx = 1;
+            else if (e.KeyCode == Keys.Left || e.KeyCode == Keys.A) dy = -1;
+            else if (e.KeyCode == Keys.Right || e.KeyCode == Keys.D) dy = 1;
             else if (e.KeyCode == Keys.Z && mapHistory.Count > 0) // Lùi lại (phím Z)
             {
                 UndoLastMove();
@@ -189,7 +189,6 @@ namespace MainSys
                 steps++; // Tăng số bước khi di chuyển hợp lệ
             }
 
-            
             // Kiểm tra hoàn thành level
             CheckWinCondition();
 
@@ -204,6 +203,7 @@ namespace MainSys
                 UndoLastMove();
             }
         }
+
 
 
         private void SaveCurrentState()
@@ -365,7 +365,7 @@ namespace MainSys
             {
                 for (int y = 0; y < map.GetLength(1); y++)
                 {
-                    if (map[x, y] == 'G' || p_TrangThai == TrangThai.OnGoal) // Nếu còn mục tiêu chưa có hộp
+                    if (map[x, y] == 'G' || p_TrangThai == TrangThai.OnGoal) // Nếu còn mục tiêu chưa có hộp hoặc người chơi dang dứng trên đích.
                     {
                         return; // Chưa hoàn thành
                     }
