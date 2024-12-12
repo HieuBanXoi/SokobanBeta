@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Map;
+using StatisticsForm;
 
 namespace MainSys
 {
@@ -39,6 +40,9 @@ namespace MainSys
         private TrangThai b_TrangThai = TrangThai.OutGoal; // Trạng thái của Box
         private string highScoreFile = "high_scores.txt";
         private Dictionary<int, int> highScores = new Dictionary<int, int>();
+        private List<string> moveHistory = new List<string>();
+        private DateTime startTime;
+
 
         public Main()
         {
@@ -177,6 +181,10 @@ namespace MainSys
 
         private void SokobanForm_KeyDown(object sender, KeyEventArgs e)
         {
+            if (steps == 0)
+            {
+                startTime = DateTime.Now; // Đánh dấu thời gian bắt đầu
+            }
             int dx = 0, dy = 0;
             if (e.KeyCode == Keys.Up || e.KeyCode == Keys.W) dx = -1;
             else if (e.KeyCode == Keys.Down || e.KeyCode == Keys.S) dx = 1;
@@ -208,6 +216,8 @@ namespace MainSys
             if (ProcessMove(newX, newY, dx, dy))
             {
                 steps++; // Tăng số bước khi di chuyển hợp lệ
+                string move = $"Bước {steps}: {e.KeyCode}";
+                moveHistory.Add(move);
             }
 
             // Kiểm tra hoàn thành level
@@ -436,8 +446,13 @@ namespace MainSys
                 }
             }
             UpdateHighScore(mapManager.GetCurrentLevel(), steps);
-            // Nếu tất cả mục tiêu đã được lấp đầy
             this.Invalidate(); // Vẽ lại màn hình
+            int timeTaken = (int)(DateTime.Now - startTime).TotalSeconds;
+
+            // Mở form StatisticsForm2 để hiển thị thống kê
+            StatisticsForm2 statsForm = new StatisticsForm2(steps, timeTaken, moveHistory);
+            statsForm.ShowDialog();
+            
             MessageBox.Show("You Win!!!", "Level Completed");
 
             // Sau khi người chơi hoàn thành màn chơi, hỏi xem họ có muốn chơi tiếp không

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Drawing;
+using StatisticsForm;
 
 namespace SokobanBeta
 {
@@ -71,6 +72,14 @@ namespace SokobanBeta
         public static class NavigationHelper
         {
             public static Form PreviousForm { get; set; }
+        }
+
+        private void btnHighScores_Click(object sender, EventArgs e)
+        {
+            NavigationHelper.PreviousForm = this;
+            StatisticsForm1 statisticsForm1 = new StatisticsForm1();
+            statisticsForm1.Show();
+            this.Hide();
         }
     }
 }

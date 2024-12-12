@@ -146,6 +146,10 @@
       <Project>{5608b739-c4bc-44fc-90ba-99cd56bd342b}</Project>
       <Name>Main</Name>
     </ProjectReference>
+    <ProjectReference Include="..\StatisticsForm1\StatisticsForm1.csproj">
+      <Project>{83b64e45-6422-4433-94f5-331705ae23c3}</Project>
+      <Name>StatisticsForm1</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Instruction.png" />
