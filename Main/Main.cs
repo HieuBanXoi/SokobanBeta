@@ -37,6 +37,8 @@ namespace MainSys
         enum TrangThai { OnGoal, OutGoal };
         private TrangThai p_TrangThai = TrangThai.OutGoal; // Trạng thái của Player
         private TrangThai b_TrangThai = TrangThai.OutGoal; // Trạng thái của Box
+        private string highScoreFile = "high_scores.txt";
+        private Dictionary<int, int> highScores = new Dictionary<int, int>();
 
         public Main()
         {
@@ -60,11 +62,10 @@ namespace MainSys
             LoadMaps();
             LoadCurrentMap();
             playerStateHistory = new Stack<TrangThai>();
-
+            LoadHighScores();
             //InitializeUI();
             this.KeyDown += SokobanForm_KeyDown;
             this.Paint += SokobanForm_Paint;
-
 
         }
 
@@ -434,7 +435,7 @@ namespace MainSys
                     }
                 }
             }
-
+            UpdateHighScore(mapManager.GetCurrentLevel(), steps);
             // Nếu tất cả mục tiêu đã được lấp đầy
             this.Invalidate(); // Vẽ lại màn hình
             MessageBox.Show("You Win!!!", "Level Completed");
@@ -500,9 +501,50 @@ namespace MainSys
             }
             // Hiển thị số bước đã đi
             g.DrawString($"Steps: {steps}", new Font("Arial", 14), Brushes.Black, new PointF(10, 10));
+            int currentLevel = mapManager.GetCurrentLevel();
+            if (highScores.ContainsKey(currentLevel))
+            {
+                g.DrawString($"High Score: {highScores[currentLevel]}", new Font("Arial", 14), Brushes.Black, new PointF(10, 30));
+            }
+
         }
 
-        
+        // Tải điểm cao từ file
+        private void LoadHighScores()
+        {
+            if (System.IO.File.Exists(highScoreFile))
+            {
+                string[] lines = System.IO.File.ReadAllLines(highScoreFile);
+                foreach (string line in lines)
+                {
+                    if (string.IsNullOrWhiteSpace(line)) continue;
+                    string[] parts = line.Split(':');
+                    if (parts.Length == 2)
+                    {
+                        int level = int.Parse(parts[0].Trim());
+                        int score = int.Parse(parts[1].Trim());
+                        highScores[level] = score;
+                    }
+                }
+            }
+        }
+
+        // Lưu điểm cao vào file
+        private void SaveHighScores()
+        {
+            var lines = highScores.Select(kvp => $"{kvp.Key}: {kvp.Value}");
+            System.IO.File.WriteAllLines(highScoreFile, lines);
+        }
+
+        // Cập nhật điểm cao cho level hiện tại
+        private void UpdateHighScore(int level, int steps)
+        {
+            if (!highScores.ContainsKey(level) || steps < highScores[level])
+            {
+                highScores[level] = steps; // Cập nhật điểm cao mới
+                SaveHighScores();
+            }
+        }
 
 
     }

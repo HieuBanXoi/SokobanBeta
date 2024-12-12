@@ -33,12 +33,12 @@ namespace MainSys
         {
             this.SuspendLayout();
             // 
-            // Level1
+            // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Name = "Level1";
+            this.Name = "Main";
             this.Text = "Form1";
             this.ResumeLayout(false);
 
