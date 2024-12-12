@@ -44,15 +44,21 @@ namespace SokobanBeta
         // Sự kiện khi nhấn nút "Instructions"
         private void BtnInstructions_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Use the arrow keys to move the player and push boxes to the goals.\nPress z to undo last move.", "Instructions");
+            // Mở form InstructionsForm
+            NavigationHelper.PreviousForm = this;
+            Instructions instructionsForm = new Instructions(); 
+            instructionsForm.Show();
+            this.Hide();
         }
-
         // Sự kiện khi nhấn nút "Exit"
-        private void BtnExit_Click(object sender, EventArgs e)
-        {
-            Application.Exit(); // Thoát ứng dụng
-        }
 
+        private void BtnExit_Click(object sender, EventArgs e)
+
+        {
+
+            Application.Exit(); // Thoát ứng dụng
+
+        }
         // Đảm bảo tài nguyên hình ảnh được giải phóng khi form đóng
         protected override void OnClosed(EventArgs e)
         {
