@@ -15,8 +15,8 @@ namespace MainSys
     {
         private GameMapManager mapManager;
         private char[,] map;
-        private int playerX , playerY ; // Vị trí bắt đầu của người chơi
-        private int cellSize = 64;           // Kích thước mỗi ô
+        private int playerX, playerY; // Vị trí bắt đầu của người chơi
+        private int cellSize = 64; // Kích thước mỗi ô
         private Image wallImage;
         private Image boxImage;
         private Image goalImage;
@@ -25,11 +25,18 @@ namespace MainSys
         private int steps; // Số bước đã đi
         private Stack<char[,]> mapHistory; // Lịch sử map
         private Stack<(int playerX, int playerY)> playerHistory; // Lịch sử vị trí người chơi
-        enum TrangThai { OnGoal, OutGoal };
         private Stack<TrangThai> playerStateHistory;
+        private Stack<char[,]> redoMapHistory; // Lịch sử map cho Redo
+        private Stack<(int playerX, int playerY)> redoPlayerHistory; // Lịch sử vị trí người chơi cho Redo
+        private Stack<TrangThai> redoPlayerStateHistory; // Lịch sử trạng thái người chơi cho Redo
+        private char[,] initialMap; // Lưu bản đồ gốc
+        private int initialPlayerX, initialPlayerY; // Lưu vị trí ban đầu của người chơi
+        private TrangThai initialPlayerState; // Lưu trạng thái ban đầu của người chơi
+        private TrangThai initialBoxState; // Lưu trạng thái ban đầu của box
 
-        TrangThai p_TrangThai = TrangThai.OutGoal; // Trạng thái của Player
-        TrangThai b_TrangThai = TrangThai.OutGoal; // Trạng thái của Box
+        enum TrangThai { OnGoal, OutGoal };
+        private TrangThai p_TrangThai = TrangThai.OutGoal; // Trạng thái của Player
+        private TrangThai b_TrangThai = TrangThai.OutGoal; // Trạng thái của Box
 
         public Main()
         {
@@ -39,6 +46,11 @@ namespace MainSys
             steps = 0;
             mapHistory = new Stack<char[,]>();
             playerHistory = new Stack<(int, int)>();
+            playerStateHistory = new Stack<TrangThai>();
+            redoMapHistory = new Stack<char[,]>();
+            redoPlayerHistory = new Stack<(int, int)>();
+            redoPlayerStateHistory = new Stack<TrangThai>();
+
             playerImage = Properties.Resources.player;
             goalImage = Properties.Resources.goal;
             boxImage = Properties.Resources.box;
@@ -143,10 +155,13 @@ namespace MainSys
                 map = currentMap.MapData;
                 playerX = currentMap.PlayerStartX;
                 playerY = currentMap.PlayerStartY;
-                this.StartPosition = FormStartPosition.WindowsDefaultLocation;
-                this.Text = currentMap.Name;
                 UpdateFormSize();
-                this.Invalidate(); // Vẽ lại màn hình
+                // Lưu trạng thái ban đầu
+                initialMap = (char[,])map.Clone();
+                initialPlayerX = playerX;
+                initialPlayerY = playerY;
+                initialPlayerState = p_TrangThai;
+                initialBoxState = b_TrangThai;
             }
         }
 
@@ -171,9 +186,14 @@ namespace MainSys
                 UndoLastMove();
                 return;
             }
-            else if (e.KeyCode == Keys.R) // Lùi lại (phím Z)
+            else if (e.KeyCode == Keys.Y && redoMapHistory.Count > 0) // Tiến lên (phím Y)
             {
-                Restart();
+                RedoLastMove();
+                return;
+            }
+            else if (e.KeyCode == Keys.R) // Restart (phím R)
+            {
+                RestartGame(); // Gọi hàm restart
                 return;
             }
             else
@@ -195,14 +215,6 @@ namespace MainSys
             this.Invalidate(); // Vẽ lại màn hình
         }
 
-        private void Restart()
-        {
-            int allsteps = steps;
-            for (int i = 1; i <= allsteps; i++)
-            {
-                UndoLastMove();
-            }
-        }
 
 
 
@@ -221,6 +233,9 @@ namespace MainSys
 
         private void UndoLastMove()
         {
+            // Lưu trạng thái hiện tại vào lịch sử Redo trước khi Undo
+            SaveRedoState();
+
             // Phục hồi map từ lịch sử
             map = mapHistory.Pop();
 
@@ -235,6 +250,54 @@ namespace MainSys
 
             this.Invalidate(); // Vẽ lại màn hình
         }
+        private void RedoLastMove()
+        {
+            // Phục hồi map từ lịch sử Redo
+            map = redoMapHistory.Pop();
+
+            // Phục hồi vị trí người chơi từ lịch sử Redo
+            (playerX, playerY) = redoPlayerHistory.Pop();
+
+            // Phục hồi trạng thái người chơi từ lịch sử Redo
+            p_TrangThai = redoPlayerStateHistory.Pop();
+
+            // Tăng số bước (nếu cần)
+            steps++;
+
+            this.Invalidate(); // Vẽ lại màn hình
+        }
+        private void RestartGame()
+        {
+            // Khôi phục trạng thái ban đầu
+            map = (char[,])initialMap.Clone();
+            playerX = initialPlayerX;
+            playerY = initialPlayerY;
+            p_TrangThai = initialPlayerState;
+            b_TrangThai = initialBoxState;
+
+            mapHistory.Clear();
+            playerHistory.Clear();
+            playerStateHistory.Clear();
+            redoMapHistory.Clear();
+            redoPlayerHistory.Clear();
+            redoPlayerStateHistory.Clear();
+            steps = 0;
+
+            this.Invalidate();
+        }
+        private void SaveRedoState()
+        {
+            // Lưu map hiện tại vào lịch sử Redo
+            char[,] currentMapState = (char[,])map.Clone();
+            redoMapHistory.Push(currentMapState);
+
+            // Lưu vị trí người chơi hiện tại vào lịch sử Redo
+            redoPlayerHistory.Push((playerX, playerY));
+
+            // Lưu trạng thái người chơi hiện tại vào lịch sử Redo
+            redoPlayerStateHistory.Push(p_TrangThai);
+        }
+
         private bool ProcessMove(int newX, int newY, int dx, int dy)
         {
             if (map[newX, newY] == '#')

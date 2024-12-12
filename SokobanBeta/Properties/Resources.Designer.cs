@@ -73,9 +73,9 @@ namespace SokobanBeta.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap SOKOBAN__Slection_Level {
+        internal static System.Drawing.Bitmap SOKOBAN_Slection_Level {
             get {
-                object obj = ResourceManager.GetObject("SOKOBAN__Slection_Level", resourceCulture);
+                object obj = ResourceManager.GetObject("SOKOBAN_Slection_Level", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

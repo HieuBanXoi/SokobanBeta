@@ -27,7 +27,7 @@ namespace SokobanBeta
 
         private void LoadBackgroundImage()
         {
-            backgroundImage = Properties.Resources.SOKOBAN__Slection_Level;
+            backgroundImage = Properties.Resources.SOKOBAN_Slection_Level;
         }
         protected override void OnClosed(EventArgs e)
         {
