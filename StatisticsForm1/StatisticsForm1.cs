@@ -59,11 +59,15 @@ namespace StatisticsForm
                 dataGridView1.Rows.Add(score.Key, score.Value);
             }
         }
-
-        private void btnLoadStatistics_Click(object sender, EventArgs e)
+        private void btnBack_Click(object sender, EventArgs e)
         {
-            // Khi người dùng nhấn nút, tải lại điểm cao và hiển thị lại
-            LoadHighScores();
+            //if (NavigationHelper.PreviousForm != null)
+            //{
+            //    NavigationHelper.PreviousForm.Show(); // Hiển thị Form trước đó
+            //    this.Close();
+            //}
+            this.Close(); // Đóng form thống kê
         }
+
     }
     }

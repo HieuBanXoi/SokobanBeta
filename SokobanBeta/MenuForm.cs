@@ -79,7 +79,7 @@ namespace SokobanBeta
             NavigationHelper.PreviousForm = this;
             StatisticsForm1 statisticsForm1 = new StatisticsForm1();
             statisticsForm1.Show();
-            this.Hide();
+            
         }
     }
 }

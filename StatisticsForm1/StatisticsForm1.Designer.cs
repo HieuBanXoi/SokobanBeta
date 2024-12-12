@@ -31,37 +31,24 @@ namespace StatisticsForm
 
         
         private DataGridView dataGridView1;
-        private Button btnLoadStatistics;
-        private Control lblTitle;
+        private Button btnBack;
 
         private void InitializeComponent()
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.btnLoadStatistics = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
+            this.btnBack = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
-
             // 
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(12, 42);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.Size = new System.Drawing.Size(776, 346);
             this.dataGridView1.TabIndex = 0;
-
-            // 
-            // btnLoadStatistics
-            // 
-            this.btnLoadStatistics.Location = new System.Drawing.Point(12, 394);
-            this.btnLoadStatistics.Name = "btnLoadStatistics";
-            this.btnLoadStatistics.Size = new System.Drawing.Size(120, 40);
-            this.btnLoadStatistics.TabIndex = 1;
-            this.btnLoadStatistics.Text = "Load Statistics";
-            this.btnLoadStatistics.UseVisualStyleBackColor = true;
-            this.btnLoadStatistics.Click += new System.EventHandler(this.btnLoadStatistics_Click);
-
             // 
             // lblTitle
             // 
@@ -69,25 +56,37 @@ namespace StatisticsForm
             this.lblTitle.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Bold);
             this.lblTitle.Location = new System.Drawing.Point(12, 9);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(200, 22);
+            this.lblTitle.Size = new System.Drawing.Size(253, 29);
             this.lblTitle.TabIndex = 2;
             this.lblTitle.Text = "High Score Statistics";
-
+            // 
+            // btnBack
+            // 
+            this.btnBack.Location = new System.Drawing.Point(672, 6);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(100, 30);
+            this.btnBack.TabIndex = 3;
+            this.btnBack.Text = "Back";
+            this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // StatisticsForm1
             // 
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.lblTitle);
-            this.Controls.Add(this.btnLoadStatistics);
+            this.Controls.Add(this.btnBack);
             this.Controls.Add(this.dataGridView1);
             this.Name = "StatisticsForm1";
             this.Text = "Statistics Form";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
-            #endregion
-        }
+        #endregion
+
+        private Label lblTitle;
+    }
 }
 
