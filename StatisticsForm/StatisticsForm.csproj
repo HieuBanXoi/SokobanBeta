@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{83B64E45-6422-4433-94F5-331705AE23C3}</ProjectGuid>
+    <ProjectGuid>{9DF1F31D-D95D-400F-B90E-304563A86D65}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>StatisticsForm1</RootNamespace>
-    <AssemblyName>StatisticsForm1</AssemblyName>
+    <RootNamespace>StatisticsForm</RootNamespace>
+    <AssemblyName>StatisticsForm</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="StatisticsForm2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StatisticsForm2.Designer.cs">
+      <DependentUpon>StatisticsForm2.cs</DependentUpon>
+    </Compile>
     <Compile Include="StatisticsForm1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -62,9 +68,13 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="StatisticsForm1.resx">
       <DependentUpon>StatisticsForm1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StatisticsForm2.resx">
+      <DependentUpon>StatisticsForm2.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -78,6 +88,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\StatisticsFormBackground.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

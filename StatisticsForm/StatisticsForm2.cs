@@ -20,10 +20,12 @@ namespace StatisticsForm
         public StatisticsForm2(int steps, int timeTaken, List<string> moveHistory)
         {
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.DoubleBuffered = true;
             this.steps = steps;
             this.timeTaken = timeTaken;
             this.moveHistory = moveHistory;
-
+            //LoadBackgroundImage(); // Tải hình ảnh nền
             // Hiển thị thông tin lên form
             DisplayStatistics();
         }
@@ -46,5 +48,27 @@ namespace StatisticsForm
 
             lblMoveHistory.Text = historyText;
         }
+        //private void LoadBackgroundImage()
+        //{
+        //    backgroundImage = Properties.Resources.StatisticsFormBackground;
+        //}
+        //protected override void OnClosed(EventArgs e)
+        //{
+        //    base.OnClosed(e);
+        //    if (backgroundImage != null)
+        //    {
+        //        backgroundImage.Dispose(); // Giải phóng tài nguyên hình ảnh
+        //    }
+        //}
+
+        //// Vẽ hình ảnh nền trong phương thức Paint
+        //protected override void OnPaint(PaintEventArgs e)
+        //{
+        //    base.OnPaint(e);
+        //    if (backgroundImage != null)
+        //    {
+        //        e.Graphics.DrawImage(backgroundImage, 0, 0, this.ClientSize.Width, this.ClientSize.Height); // Vẽ hình ảnh lên form
+        //    }
+        //}
     }
 }

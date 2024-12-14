@@ -22,6 +22,8 @@ namespace SokobanBeta
         {
             this.Width = 1000;  // Đặt chiều rộng cửa sổ nhỏ hơn
             this.Height = 600;  // Đặt chiều cao cửa sổ
+            this.MaximumSize = new Size(1000, 600);
+            this.MinimumSize = new Size(1000, 600);
             this.StartPosition = FormStartPosition.CenterScreen; // Căn giữa cửa sổ
         }
 

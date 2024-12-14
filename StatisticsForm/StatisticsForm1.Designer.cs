@@ -29,7 +29,7 @@ namespace StatisticsForm
         /// the contents of this method with the code editor.
         /// </summary>
 
-        
+
         private DataGridView dataGridView1;
         private Button btnBack;
 
@@ -43,6 +43,7 @@ namespace StatisticsForm
             // 
             // dataGridView1
             // 
+            this.dataGridView1.BackgroundColor = System.Drawing.Color.Beige;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(12, 42);
             this.dataGridView1.Name = "dataGridView1";
@@ -53,7 +54,9 @@ namespace StatisticsForm
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
+            this.lblTitle.BackColor = System.Drawing.Color.Transparent;
             this.lblTitle.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Bold);
+            this.lblTitle.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.lblTitle.Location = new System.Drawing.Point(12, 9);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(253, 29);
@@ -72,10 +75,13 @@ namespace StatisticsForm
             // 
             // StatisticsForm1
             // 
+            this.BackgroundImage = global::StatisticsForm.Properties.Resources.StatisticsFormBackground;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.dataGridView1);
+            this.MaximumSize = new System.Drawing.Size(818, 497);
+            this.MinimumSize = new System.Drawing.Size(818, 497);
             this.Name = "StatisticsForm1";
             this.Text = "Statistics Form";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

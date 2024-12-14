@@ -65,7 +65,6 @@ namespace MainSys
 
             LoadMaps();
             LoadCurrentMap();
-            playerStateHistory = new Stack<TrangThai>();
             LoadHighScores();
             //InitializeUI();
             this.KeyDown += SokobanForm_KeyDown;
@@ -161,6 +160,7 @@ namespace MainSys
                 playerX = currentMap.PlayerStartX;
                 playerY = currentMap.PlayerStartY;
                 UpdateFormSize();
+                this.Text = currentMap.Name;
                 // Lưu trạng thái ban đầu
                 initialMap = (char[,])map.Clone();
                 initialPlayerX = playerX;
@@ -210,7 +210,7 @@ namespace MainSys
                 return; // Bỏ qua các phím khác
             }
             // Lưu trạng thái trước khi di chuyển
-            SaveCurrentState();
+                SaveCurrentState();
             // Xử lý di chuyển người chơi
             int newX = playerX + dx, newY = playerY + dy;
             if (ProcessMove(newX, newY, dx, dy))
@@ -292,6 +292,7 @@ namespace MainSys
             redoMapHistory.Clear();
             redoPlayerHistory.Clear();
             redoPlayerStateHistory.Clear();
+            moveHistory.Clear();
             steps = 0;
 
             this.Invalidate();
@@ -453,7 +454,6 @@ namespace MainSys
             StatisticsForm2 statsForm = new StatisticsForm2(steps, timeTaken, moveHistory);
             statsForm.ShowDialog();
             
-            MessageBox.Show("You Win!!!", "Level Completed");
 
             // Sau khi người chơi hoàn thành màn chơi, hỏi xem họ có muốn chơi tiếp không
             DialogResult result = MessageBox.Show("Do you want to play the next level?", "Next Level", MessageBoxButtons.YesNo);

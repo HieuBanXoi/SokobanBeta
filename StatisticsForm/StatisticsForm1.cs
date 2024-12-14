@@ -17,6 +17,7 @@ namespace StatisticsForm
         public StatisticsForm1()
         {
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterScreen;
             LoadHighScores(); // Tải điểm cao khi form được khởi tạo
         }
 
@@ -70,4 +71,4 @@ namespace StatisticsForm
         }
 
     }
-    }
+}

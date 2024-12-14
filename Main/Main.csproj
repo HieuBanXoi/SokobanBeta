@@ -120,9 +120,9 @@
       <Project>{d844c5e6-9e15-45c6-8760-f1091630c91a}</Project>
       <Name>Map</Name>
     </ProjectReference>
-    <ProjectReference Include="..\StatisticsForm2\StatisticsForm2.csproj">
-      <Project>{3d46aa54-6821-4583-a63f-d57d67ac57ed}</Project>
-      <Name>StatisticsForm2</Name>
+    <ProjectReference Include="..\StatisticsForm\StatisticsForm.csproj">
+      <Project>{9df1f31d-d95d-400f-b90e-304563a86d65}</Project>
+      <Name>StatisticsForm</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
