@@ -112,6 +112,7 @@ namespace MainSys
         {
             if (map != null)
             {
+                this.Icon = Properties.Resources.Icon;
                 this.Width = map.GetLength(1) * cellSize + 16; // Độ rộng form
                 this.Height = map.GetLength(0) * cellSize + 39; // Chiều cao form
                 this.FormBorderStyle = FormBorderStyle.FixedSingle; // Khóa kích thước form

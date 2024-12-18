@@ -34,13 +34,13 @@ namespace StatisticsForm
         private void DisplayStatistics()
         {
             // Hiển thị số bước đã đi
-            lblSteps.Text = $"Số bước: {steps}";
+            lblSteps.Text = $"Steps: {steps}";
 
             // Hiển thị thời gian hoàn thành
-            lblTime.Text = $"Thời gian: {timeTaken} giây";
+            lblTime.Text = $"Time: {timeTaken} seconds";
 
             // Hiển thị lịch sử di chuyển
-            string historyText = "Lịch sử di chuyển:\n";
+            string historyText = "Moving History:\n";
             foreach (string move in moveHistory)
             {
                 historyText += move + "\n";

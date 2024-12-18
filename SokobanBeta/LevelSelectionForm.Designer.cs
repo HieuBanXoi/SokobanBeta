@@ -21,6 +21,8 @@ namespace SokobanBeta
         // Phương thức khởi tạo giao diện form
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LevelSelectionForm));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.SuspendLayout();
             this.FormBorderStyle = FormBorderStyle.FixedSingle; // Khóa kích thước form
             this.MaximizeBox = false;
@@ -44,7 +46,7 @@ namespace SokobanBeta
             };
             btnLevel1.Click += (sender, e) => BtnLevel_Click(sender, e, 1);
             this.Controls.Add(btnLevel1);
-
+           
             // Nút Level 2
             Button btnLevel2 = new Button
             {

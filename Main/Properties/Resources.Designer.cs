@@ -39,7 +39,7 @@ namespace MainSys.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Level_1.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MainSys.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -81,6 +81,16 @@ namespace MainSys.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon Icon {
+            get {
+                object obj = ResourceManager.GetObject("Icon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to # Map Level 1
         ///#####
         ///#P  #
@@ -99,25 +109,6 @@ namespace MainSys.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to # Map Level 2
-        ///#######
-        ///#     #
-        ///#PB B #
-        ///# G#G #
-        ///#  #  #
-        ///#  #  #
-        ///#######
-        ///
-        ///2,1
-        ///.
-        /// </summary>
-        internal static string Level2 {
-            get {
-                return ResourceManager.GetString("Level2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to # Map Level 3
         ///########
         ///###   ##
         ///#GPB  ##
@@ -129,6 +120,25 @@ namespace MainSys.Properties {
         ///########
         ///
         ///2,2
+        ///.
+        /// </summary>
+        internal static string Level2 {
+            get {
+                return ResourceManager.GetString("Level2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to # Map Level 3
+        ///#######
+        ///#     #
+        ///#PB B #
+        ///# G#G #
+        ///#  #  #
+        ///#  #  #
+        ///#######
+        ///
+        ///2,1
         ///.
         /// </summary>
         internal static string Level3 {
