@@ -21,6 +21,7 @@ namespace SokobanBeta
         {
             backgroundImage = Properties.Resources.SOKOBAN;
         }
+
         // Vẽ hình ảnh trong phương thức Paint
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -51,15 +52,13 @@ namespace SokobanBeta
             instructionsForm.Show();
             this.Hide();
         }
+
         // Sự kiện khi nhấn nút "Exit"
-
         private void BtnExit_Click(object sender, EventArgs e)
-
         {
-
             Application.Exit(); // Thoát ứng dụng
-
         }
+
         // Đảm bảo tài nguyên hình ảnh được giải phóng khi form đóng
         protected override void OnClosed(EventArgs e)
         {

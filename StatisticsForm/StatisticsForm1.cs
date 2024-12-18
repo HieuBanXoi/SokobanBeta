@@ -62,11 +62,6 @@ namespace StatisticsForm
         }
         private void btnBack_Click(object sender, EventArgs e)
         {
-            //if (NavigationHelper.PreviousForm != null)
-            //{
-            //    NavigationHelper.PreviousForm.Show(); // Hiển thị Form trước đó
-            //    this.Close();
-            //}
             this.Close(); // Đóng form thống kê
         }
 

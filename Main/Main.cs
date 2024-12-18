@@ -15,7 +15,7 @@ namespace MainSys
     public partial class Main : Form
     {
         private GameMapManager mapManager;
-        private char[,] map;
+        private char[,] map; // Khai báo map
         private int playerX, playerY; // Vị trí bắt đầu của người chơi
         private int cellSize = 64; // Kích thước mỗi ô
         private Image wallImage;
@@ -26,17 +26,17 @@ namespace MainSys
         private int steps; // Số bước đã đi
         private Stack<char[,]> mapHistory; // Lịch sử map
         private Stack<(int playerX, int playerY)> playerHistory; // Lịch sử vị trí người chơi
-        private Stack<TrangThai> playerStateHistory;
+        private Stack<TrangThai> playerStateHistory; // Lịch sử trạng thái người chơi
         private char[,] initialMap; // Lưu bản đồ gốc
         private int initialPlayerX, initialPlayerY; // Lưu vị trí ban đầu của người chơi
         private TrangThai initialPlayerState; // Lưu trạng thái ban đầu của người chơi
         private TrangThai initialBoxState; // Lưu trạng thái ban đầu của box
-        private bool result;
+        private bool result;// Lưu kết quả khi qua màn
 
         enum TrangThai { OnGoal, OutGoal };
         private TrangThai p_TrangThai = TrangThai.OutGoal; // Trạng thái của Player
         private TrangThai b_TrangThai = TrangThai.OutGoal; // Trạng thái của Box
-        private string highScoreFile = "high_scores.txt";
+        private string highScoreFile = "high_scores.txt"; // File lưu điểm cao
         private Dictionary<int, int> highScores = new Dictionary<int, int>();
         private List<string> moveHistory = new List<string>();
         private DateTime startTime;
@@ -45,26 +45,24 @@ namespace MainSys
         public Main()
         {
             InitializeComponent();
-
             this.DoubleBuffered = true; // Màn hình không bị chớp mỗi khi di chuyển nhân vật
+            // Khởi tạo
             steps = 0;
             mapHistory = new Stack<char[,]>();
             playerHistory = new Stack<(int, int)>();
             playerStateHistory = new Stack<TrangThai>();
-
+            // Load ảnh từ Resource
             playerImage = Properties.Resources.player;
             goalImage = Properties.Resources.goal;
             boxImage = Properties.Resources.box;
             wallImage = Properties.Resources.wall;
             placedBoxImage = Properties.Resources.placedBox;
-
+            // Khởi tạo 
             LoadMaps();
             LoadCurrentMap();
             LoadHighScores();
-            //InitializeUI();
             this.KeyDown += SokobanForm_KeyDown;
             this.Paint += SokobanForm_Paint;
-
         }
 
         public void LoadSpecificLevel(int level)
@@ -73,64 +71,7 @@ namespace MainSys
             LoadCurrentMap(); // Tải map của level đó
         }
 
-        private void LoadMapsFromFile(string filePath)
-        {
-            try
-            {
-                // Đọc tất cả dòng từ file
-                string[] lines = System.IO.File.ReadAllLines(filePath);
-
-                // Tìm tên map (dòng đầu tiên)
-                string mapName = lines[0].Replace("# Map ", "").Trim();
-
-                // Parse bản đồ
-                List<char[]> mapDataList = new List<char[]>();
-                int playerX = 0, playerY = 0;
-                bool foundPlayerStart = false;
-
-                for (int i = 1; i < lines.Length; i++)
-                {
-                    string line = lines[i].Trim();
-                    if (string.IsNullOrEmpty(line)) continue;
-
-                    // Nếu là tọa độ bắt đầu
-                    if (line.Contains(","))
-                    {
-                        string[] startCoords = line.Split(',');
-                        playerX = int.Parse(startCoords[0]);
-                        playerY = int.Parse(startCoords[1]);
-                        foundPlayerStart = true;
-                        break;
-                    }
-
-                    mapDataList.Add(line.ToCharArray());
-                }
-
-                if (!foundPlayerStart)
-                {
-                    throw new Exception("Player start position not defined in map file.");
-                }
-
-                // Chuyển List<char[]> thành mảng 2 chiều
-                int rows = mapDataList.Count;
-                int cols = mapDataList[0].Length;
-                char[,] mapData = new char[rows, cols];
-                for (int r = 0; r < rows; r++)
-                {
-                    for (int c = 0; c < cols; c++)
-                    {
-                        mapData[r, c] = mapDataList[r][c];
-                    }
-                }
-
-                // Thêm bản đồ vào GameMapManager
-                mapManager.AddMap(new GameMap(mapName, mapData, playerX, playerY));
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error loading map from file: {ex.Message}");
-            }
-        }
+        
 
         // Sử dụng hàm LoadMapsFromFile trong LoadMaps
         private void LoadMaps()
@@ -138,14 +79,15 @@ namespace MainSys
             mapManager = new GameMapManager();
 
             // Tải bản đồ từ file
-            LoadMapsFromFile("Resources\\Level1.txt");
-            LoadMapsFromFile("Resources\\Level2.txt");
-            //LoadMapsFromFile("Resources\\Level3.txt");
+            mapManager.LoadMapsFromFile("Resources\\Level1.txt");
+            mapManager.LoadMapsFromFile("Resources\\Level2.txt");
+            //LoadMapsFromFile("Resources\\Level3.txt");  // Dễ dàng mở rộng các map mới
             //LoadMapsFromFile("Resources\\Level4.txt");
             //LoadMapsFromFile("Resources\\Level5.txt");
-
+            
         }
 
+        // Tải map hiện tại
         private void LoadCurrentMap()
         {
             GameMap currentMap = mapManager.GetCurrentMap();
@@ -165,6 +107,7 @@ namespace MainSys
             }
         }
 
+        // Căn chỉnh form
         private void UpdateFormSize()
         {
             if (map != null)
@@ -172,10 +115,11 @@ namespace MainSys
                 this.Width = map.GetLength(1) * cellSize + 16; // Độ rộng form
                 this.Height = map.GetLength(0) * cellSize + 39; // Chiều cao form
                 this.FormBorderStyle = FormBorderStyle.FixedSingle; // Khóa kích thước form
-                this.MaximizeBox = false;
+                this.MaximizeBox = false; // Khóa kích thước form
             }
         }
 
+        // Nhận dữ liệu từ bàn phím
         private void SokobanForm_KeyDown(object sender, KeyEventArgs e)
         {
             if (steps == 0)
@@ -189,7 +133,7 @@ namespace MainSys
             else if (e.KeyCode == Keys.Right || e.KeyCode == Keys.D) dy = 1;
             else if (e.KeyCode == Keys.Z && mapHistory.Count > 0) // Lùi lại (phím Z)
             {
-                UndoLastMove();
+                UndoLastMove(); // Gọi hàm UndoLastMove
                 return;
             }
             else if (e.KeyCode == Keys.R) // Restart (phím R)
@@ -205,25 +149,25 @@ namespace MainSys
             SaveCurrentState();
             // Xử lý di chuyển người chơi
             int newX = playerX + dx, newY = playerY + dy;
-            if (ProcessMove(newX, newY, dx, dy))
+            if (ProcessMove(newX, newY, dx, dy)) // Nếu di chuyển hợp lệ
             {
                 steps++; // Tăng số bước khi di chuyển hợp lệ
                 string move = $"Bước {steps}: {e.KeyCode}";
-                moveHistory.Add(move);
+                moveHistory.Add(move); // Lưu lịch sử di chuyển
             }
-            else
+            else // Nếu di chuyển khoogn hợp lệ
             {
+                // Xóa lịch sử gần nhất của map, player, trạng thái
                 mapHistory.Pop();
                 playerHistory.Pop();
                 playerStateHistory.Pop();
             }
-            // Kiểm tra hoàn thành level
-            CheckWinCondition();
 
+            CheckWinCondition(); // Kiểm tra hoàn thành level
             this.Invalidate(); // Vẽ lại màn hình
         }
 
-
+        // Lưu vị trí, map, trạng thái hiện tại
         private void SaveCurrentState()
         {
                 // Lưu map hiện tại
@@ -237,6 +181,7 @@ namespace MainSys
                 playerStateHistory.Push(p_TrangThai);
         }
 
+        //Quay lại bước trước đó
         private void UndoLastMove()
         {
 
@@ -259,6 +204,8 @@ namespace MainSys
             }
             this.Invalidate(); // Vẽ lại màn hình
         }
+
+        // Chơi lại màn
         private void RestartGame()
         {
             // Khôi phục trạng thái ban đầu
@@ -276,6 +223,8 @@ namespace MainSys
 
             this.Invalidate();
         }
+
+        // Thực hiện di chuyển nhân vật theo logic game
         private bool ProcessMove(int newX, int newY, int dx, int dy)
         {
             if (map[newX, newY] == '#')
@@ -398,7 +347,8 @@ namespace MainSys
             
             return true; // Trả về true nếu di chuyển hợp lệ
         }
-        // Hàm kiểm tra điều kiện chiến thắng
+
+        // Kiểm tra điều kiện chiến thắng
         private void CheckWinCondition()
         {
             // Kiểm tra xem có còn mục tiêu nào chưa hoàn thành không
@@ -406,20 +356,21 @@ namespace MainSys
             {
                 for (int y = 0; y < map.GetLength(1); y++)
                 {
-                    if (map[x, y] == 'G' || p_TrangThai == TrangThai.OnGoal) // Nếu còn mục tiêu chưa có hộp hoặc người chơi dang dứng trên đích.
+                    if (map[x, y] == 'G' || p_TrangThai == TrangThai.OnGoal) // Nếu còn mục tiêu chưa có hộp hoặc người chơi đang đứng trên đích.
                     {
                         return; // Chưa hoàn thành
                     }
                 }
             }
-            UpdateHighScore(mapManager.GetCurrentLevel(), steps);
+            // Khi đã hoàn thành màn chơi
+            UpdateHighScore(mapManager.GetCurrentLevel(), steps); // Lưu số bước của màn chơi vào highscore nếu có
             this.Invalidate(); // Vẽ lại màn hình
-            int timeTaken = (int)(DateTime.Now - startTime).TotalSeconds;
+            int timeTaken = (int)(DateTime.Now - startTime).TotalSeconds; // Tính thời gian hoàn thành màn chơi
 
             // Mở form StatisticsForm2 để hiển thị thống kê
             StatisticsForm2 statsForm = new StatisticsForm2(steps, timeTaken, moveHistory);
             statsForm.ShowDialog();
-            result = statsForm.result;
+            result = statsForm.result; // Lấy kết quả từ button trong StattisticsForm2
 
             if (result)
             {
@@ -435,7 +386,7 @@ namespace MainSys
             }
         }
 
-
+        // Chuyển sang level kế tiếp
         private void NextLevel()
         {
             if (mapManager.MoveToNextMap())
@@ -448,7 +399,6 @@ namespace MainSys
                 Application.Exit(); // Nếu không còn màn nào, thoát game
             }
         }
-
 
         // Sự kiện vẽ giao diện trò chơi
         private void SokobanForm_Paint(object sender, PaintEventArgs e)
@@ -482,6 +432,7 @@ namespace MainSys
             int currentLevel = mapManager.GetCurrentLevel();
             if (highScores.ContainsKey(currentLevel))
             {
+                // Hiển thị HighScore
                 g.DrawString($"High Score: {highScores[currentLevel]}", new Font("Arial", 14), Brushes.Black, new PointF(10, 30));
             }
 

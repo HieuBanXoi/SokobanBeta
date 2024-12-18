@@ -15,7 +15,7 @@ namespace StatisticsForm
         private int steps;
         private int timeTaken; // Thời gian hoàn thành (tính bằng giây)
         private List<string> moveHistory;
-        public bool result ;
+        public bool result;
 
         // Hàm khởi tạo nhận các tham số để hiển thị
         public StatisticsForm2(int steps, int timeTaken, List<string> moveHistory)
@@ -26,7 +26,6 @@ namespace StatisticsForm
             this.steps = steps;
             this.timeTaken = timeTaken;
             this.moveHistory = moveHistory;
-            //LoadBackgroundImage(); // Tải hình ảnh nền
             // Hiển thị thông tin lên form
             DisplayStatistics();
         }
@@ -48,7 +47,6 @@ namespace StatisticsForm
             }
 
             lblMoveHistory.Text = historyText;
-            //panelHistory.Controls.Add(label1);
         }
 
         private void btnNextLevel_Click(object sender, EventArgs e)

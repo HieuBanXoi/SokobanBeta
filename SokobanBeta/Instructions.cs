@@ -38,6 +38,7 @@ namespace SokobanBeta
             }
         }
 
+        // Xử lí nút Back
         private void Btn_Back_Click(object sender, EventArgs e)
         {
             if (NavigationHelper.PreviousForm != null)

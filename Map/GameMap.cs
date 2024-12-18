@@ -66,43 +66,63 @@ namespace Map
             }
         }
 
-        public bool HasMoreMaps()
-        {
-            return currentMapIndex + 1 < maps.Count;
-        }
-
         // Load a map from a TXT file
-        public void LoadMap(string filePath)
+        public void LoadMapsFromFile(string filePath)
         {
-            using (StreamReader reader = new StreamReader(filePath))
+            try
             {
-                string name = reader.ReadLine(); // Read map name
+                // Đọc tất cả dòng từ file
+                string[] lines = System.IO.File.ReadAllLines(filePath);
 
-                List<string> mapData = new List<string>();
-                string line;
-                while ((line = reader.ReadLine()) != null && !line.Contains(","))
+                // Tìm tên map (dòng đầu tiên)
+                string mapName = lines[0].Replace("# Map ", "").Trim();
+
+                // Parse bản đồ
+                List<char[]> mapDataList = new List<char[]>();
+                int playerX = 0, playerY = 0;
+                bool foundPlayerStart = false;
+
+                for (int i = 1; i < lines.Length; i++)
                 {
-                    mapData.Add(line); // Read map data
+                    string line = lines[i].Trim();
+                    if (string.IsNullOrEmpty(line)) continue;
+
+                    // Nếu là tọa độ bắt đầu
+                    if (line.Contains(","))
+                    {
+                        string[] startCoords = line.Split(',');
+                        playerX = int.Parse(startCoords[0]);
+                        playerY = int.Parse(startCoords[1]);
+                        foundPlayerStart = true;
+                        break;
+                    }
+
+                    mapDataList.Add(line.ToCharArray());
                 }
 
-                int rows = mapData.Count;
-                int cols = mapData[0].Length;
-                char[,] mapArray = new char[rows, cols];
-
-                for (int i = 0; i < rows; i++)
+                if (!foundPlayerStart)
                 {
-                    for (int j = 0; j < cols; j++)
+                    throw new Exception("Player start position not defined in map file.");
+                }
+
+                // Chuyển List<char[]> thành mảng 2 chiều
+                int rows = mapDataList.Count;
+                int cols = mapDataList[0].Length;
+                char[,] mapData = new char[rows, cols];
+                for (int r = 0; r < rows; r++)
+                {
+                    for (int c = 0; c < cols; c++)
                     {
-                        mapArray[i, j] = mapData[i][j]; // Populate map data
+                        mapData[r, c] = mapDataList[r][c];
                     }
                 }
 
-                string[] startCoordinates = line.Split(','); // Read start coordinates
-                int playerStartX = int.Parse(startCoordinates[0]);
-                int playerStartY = int.Parse(startCoordinates[1]);
-
-                GameMap loadedMap = new GameMap(name, mapArray, playerStartX, playerStartY);
-                AddMap(loadedMap); // Add the map to the collection
+                // Thêm bản đồ vào GameMapManager
+                AddMap(new GameMap(mapName, mapData, playerX, playerY));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error loading map from file: {ex.Message}");
             }
         }
     }
