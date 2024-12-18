@@ -22,7 +22,8 @@ namespace SokobanBeta
         private void InitializeComponent()
         {
             this.SuspendLayout();
-
+            this.FormBorderStyle = FormBorderStyle.FixedSingle; // Khóa kích thước form
+            this.MaximizeBox = false;
             // Kích thước các nút
             int buttonWidth = 200;
             int buttonHeight = 50;

@@ -70,8 +70,8 @@
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnInstructions);
             this.Controls.Add(this.btnStart);
-            this.MaximumSize = new System.Drawing.Size(618, 497);
-            this.MinimumSize = new System.Drawing.Size(618, 497);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "MenuForm";
             this.Text = "Sokoban Menu";
             this.ResumeLayout(false);

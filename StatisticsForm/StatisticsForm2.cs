@@ -15,6 +15,7 @@ namespace StatisticsForm
         private int steps;
         private int timeTaken; // Thời gian hoàn thành (tính bằng giây)
         private List<string> moveHistory;
+        public bool result ;
 
         // Hàm khởi tạo nhận các tham số để hiển thị
         public StatisticsForm2(int steps, int timeTaken, List<string> moveHistory)
@@ -47,28 +48,19 @@ namespace StatisticsForm
             }
 
             lblMoveHistory.Text = historyText;
+            //panelHistory.Controls.Add(label1);
         }
-        //private void LoadBackgroundImage()
-        //{
-        //    backgroundImage = Properties.Resources.StatisticsFormBackground;
-        //}
-        //protected override void OnClosed(EventArgs e)
-        //{
-        //    base.OnClosed(e);
-        //    if (backgroundImage != null)
-        //    {
-        //        backgroundImage.Dispose(); // Giải phóng tài nguyên hình ảnh
-        //    }
-        //}
 
-        //// Vẽ hình ảnh nền trong phương thức Paint
-        //protected override void OnPaint(PaintEventArgs e)
-        //{
-        //    base.OnPaint(e);
-        //    if (backgroundImage != null)
-        //    {
-        //        e.Graphics.DrawImage(backgroundImage, 0, 0, this.ClientSize.Width, this.ClientSize.Height); // Vẽ hình ảnh lên form
-        //    }
-        //}
+        private void btnNextLevel_Click(object sender, EventArgs e)
+        {
+            result = true;
+            this.Close();
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            result = false;
+            this.Close();
+        }
     }
 }

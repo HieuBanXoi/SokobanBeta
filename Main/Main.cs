@@ -15,7 +15,7 @@ namespace MainSys
     public partial class Main : Form
     {
         private GameMapManager mapManager;
-        private char[,] map,preMap;
+        private char[,] map;
         private int playerX, playerY; // Vị trí bắt đầu của người chơi
         private int cellSize = 64; // Kích thước mỗi ô
         private Image wallImage;
@@ -31,6 +31,7 @@ namespace MainSys
         private int initialPlayerX, initialPlayerY; // Lưu vị trí ban đầu của người chơi
         private TrangThai initialPlayerState; // Lưu trạng thái ban đầu của người chơi
         private TrangThai initialBoxState; // Lưu trạng thái ban đầu của box
+        private bool result;
 
         enum TrangThai { OnGoal, OutGoal };
         private TrangThai p_TrangThai = TrangThai.OutGoal; // Trạng thái của Player
@@ -170,6 +171,8 @@ namespace MainSys
             {
                 this.Width = map.GetLength(1) * cellSize + 16; // Độ rộng form
                 this.Height = map.GetLength(0) * cellSize + 39; // Chiều cao form
+                this.FormBorderStyle = FormBorderStyle.FixedSingle; // Khóa kích thước form
+                this.MaximizeBox = false;
             }
         }
 
@@ -416,12 +419,9 @@ namespace MainSys
             // Mở form StatisticsForm2 để hiển thị thống kê
             StatisticsForm2 statsForm = new StatisticsForm2(steps, timeTaken, moveHistory);
             statsForm.ShowDialog();
-            
+            result = statsForm.result;
 
-            // Sau khi người chơi hoàn thành màn chơi, hỏi xem họ có muốn chơi tiếp không
-            DialogResult result = MessageBox.Show("Do you want to play the next level?", "Next Level", MessageBoxButtons.YesNo);
-
-            if (result == DialogResult.Yes)
+            if (result)
             {
                 // Chơi tiếp màn kế tiếp
                 b_TrangThai = TrangThai.OutGoal;  // Đặt lại trạng thái hộp
