@@ -48,7 +48,7 @@ namespace SokobanBeta
             Properties.Settings.Default.Save();
 
             // Mở form MenuForm
-            Log_In menuForm = new Log_In();
+            MenuForm menuForm = new MenuForm();
             menuForm.Show();
             this.Hide();
         }

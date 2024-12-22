@@ -65,13 +65,12 @@ namespace MainSys
             this.Paint += SokobanForm_Paint;
         }
 
+        // Tải level cụ thể
         public void LoadSpecificLevel(int level)
         {
             mapManager.SetCurrentMap(level - 1); // Chuyển đến level tương ứng (index bắt đầu từ 0)
             LoadCurrentMap(); // Tải map của level đó
         }
-
-        
 
         // Sử dụng hàm LoadMapsFromFile trong LoadMaps
         private void LoadMaps()
@@ -112,7 +111,7 @@ namespace MainSys
         {
             if (map != null)
             {
-                this.Icon = Properties.Resources.Icon;
+                this.Icon = Properties.Resources.Icon; // Icon form
                 this.Width = map.GetLength(1) * cellSize + 16; // Độ rộng form
                 this.Height = map.GetLength(0) * cellSize + 39; // Chiều cao form
                 this.FormBorderStyle = FormBorderStyle.FixedSingle; // Khóa kích thước form

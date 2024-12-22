@@ -49,7 +49,7 @@
             this.lblSteps.AutoSize = true;
             this.lblSteps.BackColor = System.Drawing.Color.Beige;
             this.lblSteps.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSteps.ForeColor = System.Drawing.Color.DeepSkyBlue;
+            this.lblSteps.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lblSteps.Location = new System.Drawing.Point(12, 99);
             this.lblSteps.Name = "lblSteps";
             this.lblSteps.Size = new System.Drawing.Size(159, 32);
@@ -62,7 +62,7 @@
             this.lblTime.BackColor = System.Drawing.Color.Beige;
             this.lblTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTime.ForeColor = System.Drawing.Color.DeepSkyBlue;
+            this.lblTime.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lblTime.Location = new System.Drawing.Point(12, 139);
             this.lblTime.Name = "lblTime";
             this.lblTime.Size = new System.Drawing.Size(238, 34);
@@ -74,7 +74,7 @@
             this.lblMoveHistory.AutoSize = true;
             this.lblMoveHistory.BackColor = System.Drawing.Color.Transparent;
             this.lblMoveHistory.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMoveHistory.ForeColor = System.Drawing.Color.DeepSkyBlue;
+            this.lblMoveHistory.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lblMoveHistory.Location = new System.Drawing.Point(3, 9);
             this.lblMoveHistory.Name = "lblMoveHistory";
             this.lblMoveHistory.Size = new System.Drawing.Size(215, 32);
@@ -86,7 +86,7 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Mistral", 36F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.DeepSkyBlue;
+            this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label1.Location = new System.Drawing.Point(88, 15);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(340, 71);

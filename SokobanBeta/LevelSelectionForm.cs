@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using System.Drawing;
 using MainSys;
-using static SokobanBeta.Log_In;
+using static SokobanBeta.MenuForm;
 
 namespace SokobanBeta
 {

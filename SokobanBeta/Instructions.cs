@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static SokobanBeta.Log_In;
+using static SokobanBeta.MenuForm;
 
 namespace SokobanBeta
 {
