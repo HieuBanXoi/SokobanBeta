@@ -209,6 +209,7 @@
     <None Include="Resources\Icon.ico" />
     <Content Include="Resources\Instruction.png" />
     <None Include="Resources\Log In %282%29.png" />
+    <None Include="Resources\SOKOBAN %281%29.png" />
     <Content Include="Resources\SOKOBAN_Slection_Level.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
