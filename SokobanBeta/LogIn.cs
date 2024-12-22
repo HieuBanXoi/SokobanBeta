@@ -8,7 +8,7 @@ namespace SokobanBeta
     public partial class LogIn : Form
     {
         private Image backgroundImage;
-
+        public string playerName { get; set; }
         public LogIn()
         {
             InitializeComponent();
@@ -35,10 +35,11 @@ namespace SokobanBeta
 
         private void ContinueButton_Click(object sender, EventArgs e)
         {
-            string playerName = textBox1.Text.Trim();
+            string playerName = textBoxPlayerName.Text.Trim();
 
             if (string.IsNullOrEmpty(playerName))
             {
+                playerName = textBoxPlayerName.Text.Trim();
                 MessageBox.Show("Please enter your name to continue.", "Input Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }

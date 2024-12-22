@@ -54,6 +54,7 @@ namespace SokobanBeta
         {
             // Tạo một form mới để chơi level tương ứng
             Main gameForm = new Main();
+            gameForm.playerName = Properties.Settings.Default.PlayerName;
             gameForm.LoadSpecificLevel(level); // Tải level tương ứng
             gameForm.Show();
 

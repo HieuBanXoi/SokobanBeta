@@ -36,8 +36,9 @@ namespace MainSys
         enum TrangThai { OnGoal, OutGoal };
         private TrangThai p_TrangThai = TrangThai.OutGoal; // Trạng thái của Player
         private TrangThai b_TrangThai = TrangThai.OutGoal; // Trạng thái của Box
+        public string playerName; // Tên player
         private string highScoreFile = "high_scores.txt"; // File lưu điểm cao
-        private Dictionary<int, int> highScores = new Dictionary<int, int>();
+        private Dictionary<int, (string playerName, int steps)> highScores = new Dictionary<int, (string playerName, int steps)>();
         private List<string> moveHistory = new List<string>();
         private DateTime startTime;
 
@@ -448,11 +449,12 @@ namespace MainSys
                 {
                     if (string.IsNullOrWhiteSpace(line)) continue;
                     string[] parts = line.Split(':');
-                    if (parts.Length == 2)
+                    if (parts.Length == 3) // Đảm bảo có đủ thông tin (Level, PlayerName, Steps)
                     {
                         int level = int.Parse(parts[0].Trim());
-                        int score = int.Parse(parts[1].Trim());
-                        highScores[level] = score;
+                        string playerName = parts[1].Trim();
+                        int steps = int.Parse(parts[2].Trim());
+                        highScores[level] = (playerName, steps);
                     }
                 }
             }
@@ -461,16 +463,16 @@ namespace MainSys
         // Lưu điểm cao vào file
         private void SaveHighScores()
         {
-            var lines = highScores.Select(kvp => $"{kvp.Key}: {kvp.Value}");
+            var lines = highScores.Select(kvp => $"{kvp.Key}: {kvp.Value.playerName}: {kvp.Value.steps}");
             System.IO.File.WriteAllLines(highScoreFile, lines);
         }
 
         // Cập nhật điểm cao cho level hiện tại
         private void UpdateHighScore(int level, int steps)
         {
-            if (!highScores.ContainsKey(level) || steps < highScores[level])
+            if (!highScores.ContainsKey(level) || steps < highScores[level].steps)
             {
-                highScores[level] = steps; // Cập nhật điểm cao mới
+                highScores[level] = (playerName, steps); // Cập nhật điểm cao mới
                 SaveHighScores();
             }
         }
