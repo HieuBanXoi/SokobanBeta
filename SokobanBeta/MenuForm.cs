@@ -5,11 +5,11 @@ using StatisticsForm;
 
 namespace SokobanBeta
 {
-    public partial class MenuForm : Form
+    public partial class Log_In : Form
     {
         private Image backgroundImage;
 
-        public MenuForm()
+        public Log_In()
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;

@@ -26,5 +26,7 @@ namespace SokobanBeta.Properties
                 return defaultInstance;
             }
         }
+
+        public string PlayerName { get; internal set; }
     }
 }

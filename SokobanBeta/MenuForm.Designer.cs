@@ -1,6 +1,6 @@
 ﻿namespace SokobanBeta
 {
-    partial class MenuForm
+    partial class Log_In
     {
         private System.ComponentModel.IContainer components = null;
 
@@ -17,7 +17,7 @@
 
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MenuForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Log_In));
             this.btnStart = new System.Windows.Forms.Button();
             this.btnInstructions = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
