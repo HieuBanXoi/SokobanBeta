@@ -92,20 +92,15 @@ namespace MainSys
                     audioFileReader = null;
                 }
 
-                // Đường dẫn tệp âm thanh
-                string audioPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "GameSound.mp3");
+                // Lấy tệp âm thanh từ tài nguyên nhúng
+                var soundStream = new MemoryStream();
+                Properties.Resources.GameSound.CopyTo(soundStream); // "LevelStartSound" là tên tệp âm thanh nhúng
+                soundStream.Position = 0; // Đặt vị trí đọc lại từ đầu
 
-                // Kiểm tra sự tồn tại của tệp âm thanh
-                if (!File.Exists(audioPath))
-                {
-                    MessageBox.Show($"Không tìm thấy tệp âm thanh: {audioPath}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                // Khởi tạo trình phát âm thanh
+                // Sử dụng WaveFileReader để đọc từ MemoryStream
+                var waveReader = new WaveFileReader(soundStream);
                 waveOutDevice = new WaveOutEvent();
-                audioFileReader = new AudioFileReader(audioPath);
-                waveOutDevice.Init(audioFileReader);
+                waveOutDevice.Init(waveReader);
                 waveOutDevice.Play();
             }
             catch (Exception ex)
