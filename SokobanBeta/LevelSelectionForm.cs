@@ -9,7 +9,6 @@ namespace SokobanBeta
     public partial class LevelSelectionForm : Form
     {
         private Image backgroundImage; // Thuộc tính để chứa ảnh nền
-
         public LevelSelectionForm()
         {
             InitializeComponent(); // Gọi phương thức InitializeComponent từ file Designer

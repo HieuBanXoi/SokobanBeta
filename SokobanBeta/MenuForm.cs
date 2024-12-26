@@ -2,13 +2,14 @@
 using System.Windows.Forms;
 using System.Drawing;
 using StatisticsForm;
+using System.IO;
 
 namespace SokobanBeta
 {
     public partial class MenuForm : Form
     {
         private Image backgroundImage;
-
+        public string playerName { get; set; }
         public MenuForm()
         {
             InitializeComponent();
@@ -36,10 +37,13 @@ namespace SokobanBeta
         // Sự kiện khi nhấn nút "Start Game"
         private void BtnStart_Click(object sender, EventArgs e)
         {
-            // Mở form LevelSelectionForm khi nhấn Start Game
+            // Mở form LevelSelectionForm khi nhấn New Game
             NavigationHelper.PreviousForm = this;
-            LevelSelectionForm levelSelectionForm = new LevelSelectionForm();
-            levelSelectionForm.Show();  // Hiển thị form chọn màn chơi
+            File.Delete("save_game1.txt");
+            File.Delete("save_game2.txt");
+            // Mở form MenuForm
+            LogIn logInForm = new LogIn();
+            logInForm.Show();
             this.Hide();  // Ẩn MenuForm
         }
 
@@ -79,6 +83,27 @@ namespace SokobanBeta
             StatisticsForm1 statisticsForm1 = new StatisticsForm1();
             statisticsForm1.Show();
             
+        }
+
+        private void btnContinue_Click(object sender, EventArgs e)
+        {
+            // Mở form LevelSelectionForm khi nhấn Start Game
+            NavigationHelper.PreviousForm = this;
+            if (File.Exists("save_game1.txt") || File.Exists("save_game2.txt"))
+            {
+                using (StreamReader reader = new StreamReader("save_game1.txt"))
+                {
+                    playerName = reader.ReadLine();
+                }
+                LevelSelectionForm levelSelectionForm = new LevelSelectionForm();
+                levelSelectionForm.Show();
+                this.Hide();  // Ẩn MenuForm
+            }
+            else
+            {
+                MessageBox.Show("No data", "Input Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
         }
     }
 }

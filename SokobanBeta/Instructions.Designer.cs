@@ -34,6 +34,7 @@
             // 
             // Btn_Back
             // 
+            this.Btn_Back.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Btn_Back.BackColor = System.Drawing.Color.Transparent;
             this.Btn_Back.CausesValidation = false;
             this.Btn_Back.FlatAppearance.BorderSize = 0;

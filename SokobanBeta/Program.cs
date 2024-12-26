@@ -10,7 +10,7 @@ namespace SokobanBeta
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LogIn()); // Chạy form Menu
+            Application.Run(new MenuForm()); // Chạy form Menu
         }
     }
 }

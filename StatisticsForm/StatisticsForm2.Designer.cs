@@ -54,7 +54,7 @@
             this.lblSteps.Name = "lblSteps";
             this.lblSteps.Size = new System.Drawing.Size(159, 32);
             this.lblSteps.TabIndex = 0;
-            this.lblSteps.Text = "Số bước: 0";
+            this.lblSteps.Text = "Steps: 0";
             // 
             // lblTime
             // 

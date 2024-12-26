@@ -42,7 +42,8 @@ namespace SokobanBeta
             {
                 Text = "Level 1",
                 Size = new System.Drawing.Size(buttonWidth, buttonHeight),
-                Location = new System.Drawing.Point(startX, startY) // Vị trí cố định
+                Location = new System.Drawing.Point(startX, startY), // Vị trí cố định
+                Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)))
             };
             btnLevel1.Click += (sender, e) => BtnLevel_Click(sender, e, 1);
             this.Controls.Add(btnLevel1);
@@ -52,7 +53,8 @@ namespace SokobanBeta
             {
                 Text = "Level 2",
                 Size = new System.Drawing.Size(buttonWidth, buttonHeight),
-                Location = new System.Drawing.Point(startX, startY + buttonHeight + verticalSpacing) // Cộng thêm chiều cao của nút và khoảng cách
+                Location = new System.Drawing.Point(startX, startY + buttonHeight + verticalSpacing), // Cộng thêm chiều cao của nút và khoảng cách
+                Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)))
             };
             btnLevel2.Click += (sender, e) => BtnLevel_Click(sender, e, 2);
             this.Controls.Add(btnLevel2);
@@ -62,7 +64,8 @@ namespace SokobanBeta
             {
                 Text = "Back",
                 Size = new System.Drawing.Size(buttonWidth, buttonHeight),
-                Location = new System.Drawing.Point(startX, startY + (2 * buttonHeight) + (2 * verticalSpacing) + moveDownPixels) // Nút "Back" xuống dưới 1cm (75 pixels)
+                Location = new System.Drawing.Point(startX, startY + (2 * buttonHeight) + (2 * verticalSpacing) + moveDownPixels), // Nút "Back" xuống dưới 1cm (75 pixels)
+                Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)))
             };
             btnBack.Click += BtnBack_Click;
             this.Controls.Add(btnBack);

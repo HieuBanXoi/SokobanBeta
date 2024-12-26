@@ -20,6 +20,8 @@ namespace SokobanBeta
 
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LevelSelectionForm));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.textBoxPlayerName = new System.Windows.Forms.TextBox();
             this.continueButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -44,7 +46,7 @@ namespace SokobanBeta
             this.continueButton.Location = new System.Drawing.Point(474, 367);
             this.continueButton.Name = "continueButton";
             this.continueButton.Size = new System.Drawing.Size(114, 40);
-            this.continueButton.TabIndex = 0;
+            this.continueButton.TabIndex = 1;
             this.continueButton.TabStop = false;
             this.continueButton.UseVisualStyleBackColor = false;
             this.continueButton.Click += new System.EventHandler(this.ContinueButton_Click);

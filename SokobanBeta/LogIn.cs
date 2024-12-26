@@ -47,10 +47,8 @@ namespace SokobanBeta
             // Lưu tên người chơi (tạm thời lưu trong một biến toàn cục hoặc cấu hình nếu cần)
             Properties.Settings.Default.PlayerName = playerName;
             Properties.Settings.Default.Save();
-
-            // Mở form MenuForm
-            MenuForm menuForm = new MenuForm();
-            menuForm.Show();
+            LevelSelectionForm levelSelectionForm = new LevelSelectionForm();
+            levelSelectionForm.Show();  // Hiển thị form chọn màn chơi
             this.Hide();
         }
         // Đảm bảo tài nguyên hình ảnh được giải phóng khi form đóng

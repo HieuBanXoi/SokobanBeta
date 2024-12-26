@@ -28,7 +28,7 @@ namespace Map
     public class GameMapManager
     {
         private List<GameMap> maps = new List<GameMap>();
-        private int currentMapIndex = 0;
+        public int currentMapIndex = 0;
 
         public GameMapManager() { }
 
