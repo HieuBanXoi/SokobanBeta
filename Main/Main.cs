@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Map;
 using StatisticsForm;
+using NAudio.Wave; // Thêm namespace NAudio
 
 namespace MainSys
 {
@@ -35,7 +36,6 @@ namespace MainSys
         private TrangThai initialBoxState; // Lưu trạng thái ban đầu của box
         private bool result;// Lưu kết quả khi qua màn
         public string saveFile; // File lưu trạng thái game
-        
 
         enum TrangThai { OnGoal, OutGoal };
         private TrangThai p_TrangThai = TrangThai.OutGoal; // Trạng thái của Player
@@ -46,12 +46,16 @@ namespace MainSys
         private List<string> moveHistory = new List<string>();
         private DateTime startTime;
 
+        // Thêm biến cho NAudio
+        private IWavePlayer waveOutDevice;
+        private AudioFileReader audioFileReader;
 
         public Main()
         {
             InitializeComponent();
             this.DoubleBuffered = true; // Màn hình không bị chớp mỗi khi di chuyển nhân vật
-            // Khởi tạo
+
+            // Khởi tạo 
             steps = 0;
             mapHistory = new Stack<char[,]>();
             playerHistory = new Stack<(int, int)>();
@@ -65,10 +69,49 @@ namespace MainSys
             // Khởi tạo 
             LoadMaps();
             LoadHighScores();
-            
+
             this.KeyDown += SokobanForm_KeyDown;
             this.Paint += SokobanForm_Paint;
+        }
 
+        // Hàm phát âm thanh bắt đầu màn chơi
+        private void PlayLevelStartSound()
+        {
+            try
+            {
+                // Giải phóng tài nguyên âm thanh hiện tại nếu có
+                if (waveOutDevice != null)
+                {
+                    waveOutDevice.Stop();
+                    waveOutDevice.Dispose();
+                    waveOutDevice = null;
+                }
+                if (audioFileReader != null)
+                {
+                    audioFileReader.Dispose();
+                    audioFileReader = null;
+                }
+
+                // Đường dẫn tệp âm thanh
+                string audioPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "GameSound.mp3");
+
+                // Kiểm tra sự tồn tại của tệp âm thanh
+                if (!File.Exists(audioPath))
+                {
+                    MessageBox.Show($"Không tìm thấy tệp âm thanh: {audioPath}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Khởi tạo trình phát âm thanh
+                waveOutDevice = new WaveOutEvent();
+                audioFileReader = new AudioFileReader(audioPath);
+                waveOutDevice.Init(audioFileReader);
+                waveOutDevice.Play();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Không thể phát âm thanh bắt đầu màn chơi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         // Tải level cụ thể
@@ -98,7 +141,6 @@ namespace MainSys
             //LoadMapsFromFile("Resources\\Level3.txt");  // Dễ dàng mở rộng các map mới
             //LoadMapsFromFile("Resources\\Level4.txt");
             //LoadMapsFromFile("Resources\\Level5.txt");
-            
         }
 
         // Tải map hiện tại
@@ -118,6 +160,9 @@ namespace MainSys
                 initialPlayerY = playerY;
                 initialPlayerState = p_TrangThai;
                 initialBoxState = b_TrangThai;
+
+                // Phát âm thanh bắt đầu màn chơi
+                PlayLevelStartSound();
             }
         }
 
@@ -126,7 +171,7 @@ namespace MainSys
         {
             if (map != null)
             {
-                this.Text= "Level: " + currentLevel;
+                this.Text = "Level: " + currentLevel;
                 this.Icon = Properties.Resources.Icon; // Icon form
                 this.Width = map.GetLength(1) * cellSize + 16; // Độ rộng form
                 this.Height = map.GetLength(0) * cellSize + 39; // Chiều cao form
@@ -170,8 +215,9 @@ namespace MainSys
                 steps++; // Tăng số bước khi di chuyển hợp lệ
                 string move = $"Bước {steps}: {e.KeyCode}";
                 moveHistory.Add(move); // Lưu lịch sử di chuyển
+                // Nếu bạn muốn thêm âm thanh di chuyển ở đây, bạn có thể làm như đã hướng dẫn trước đó
             }
-            else // Nếu di chuyển khoogn hợp lệ
+            else // Nếu di chuyển không hợp lệ
             {
                 // Xóa lịch sử gần nhất của map, player, trạng thái
                 mapHistory.Pop();
@@ -186,15 +232,15 @@ namespace MainSys
         // Lưu vị trí, map, trạng thái hiện tại
         private void SaveCurrentState()
         {
-                // Lưu map hiện tại
-                char[,] currentMapState = (char[,])map.Clone();
-                mapHistory.Push(currentMapState);
+            // Lưu map hiện tại
+            char[,] currentMapState = (char[,])map.Clone();
+            mapHistory.Push(currentMapState);
 
-                // Lưu vị trí người chơi hiện tại
-                playerHistory.Push((playerX, playerY));
+            // Lưu vị trí người chơi hiện tại
+            playerHistory.Push((playerX, playerY));
 
-                // Lưu trạng thái người chơi hiện tại
-                playerStateHistory.Push(p_TrangThai);
+            // Lưu trạng thái người chơi hiện tại
+            playerStateHistory.Push(p_TrangThai);
         }
 
         //Quay lại bước trước đó
@@ -360,7 +406,7 @@ namespace MainSys
                     return false;
                 }
             }
-            
+
             return true; // Trả về true nếu di chuyển hợp lệ
         }
 
@@ -378,7 +424,7 @@ namespace MainSys
                     }
                 }
             }
-            
+
             // Khi đã hoàn thành màn chơi
             UpdateHighScore(mapManager.GetCurrentLevel(), steps); // Lưu số bước của màn chơi vào highscore nếu có
             this.Invalidate(); // Vẽ lại màn hình
@@ -387,14 +433,14 @@ namespace MainSys
             // Mở form StatisticsForm2 để hiển thị thống kê
             StatisticsForm2 statsForm = new StatisticsForm2(steps, timeTaken, moveHistory);
             statsForm.ShowDialog();
-            result = statsForm.result; // Lấy kết quả từ button trong StattisticsForm2
+            result = statsForm.result; // Lấy kết quả từ button trong StatisticsForm2
 
             if (result)
             {
                 // Chơi tiếp màn kế tiếp
                 b_TrangThai = TrangThai.OutGoal;  // Đặt lại trạng thái hộp
                 steps = 0;  // Đặt lại số bước về 0
-                NextLevel(currentLevel+1); // Tải màn kế tiếp
+                NextLevel(currentLevel + 1); // Tải màn kế tiếp
             }
             else
             {
@@ -429,7 +475,6 @@ namespace MainSys
                 {
                     this.Close();
                     MessageBox.Show("All levels completed!", "Congratulations");
-
                 }
             }
         }
@@ -466,7 +511,7 @@ namespace MainSys
             if (highScores.ContainsKey(currentLevel))
             {
                 // Hiển thị HighScore
-                g.DrawString($"High Score: {highScores[currentLevel]}", new Font("Arial", 14), Brushes.Black, new PointF(10, 30));
+                g.DrawString($"High Score: {highScores[currentLevel].steps} by {highScores[currentLevel].playerName}", new Font("Arial", 14), Brushes.Black, new PointF(10, 30));
             }
 
         }
@@ -508,6 +553,7 @@ namespace MainSys
                 SaveHighScores();
             }
         }
+
         private void SaveGame()
         {
             using (StreamWriter writer = new StreamWriter(saveFile))
@@ -544,6 +590,7 @@ namespace MainSys
                 }
             }
         }
+
         public void LoadGame(int level)
         {
             using (StreamReader reader = new StreamReader(saveFile))
@@ -592,13 +639,29 @@ namespace MainSys
                 this.Invalidate(); // Vẽ lại game
             }
             UpdateFormSize();
+
+            // Phát âm thanh bắt đầu màn chơi khi tải game
+            PlayLevelStartSound();
         }
+
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
-            
-            SaveGame(); // Lưu trạng thái game khi thoát
-        }
 
+            SaveGame(); // Lưu trạng thái game khi thoát
+
+            // Giải phóng tài nguyên âm thanh
+            if (waveOutDevice != null)
+            {
+                waveOutDevice.Stop();
+                waveOutDevice.Dispose();
+                waveOutDevice = null;
+            }
+            if (audioFileReader != null)
+            {
+                audioFileReader.Dispose();
+                audioFileReader = null;
+            }
+        }
     }
 }
