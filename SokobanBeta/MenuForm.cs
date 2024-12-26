@@ -89,9 +89,19 @@ namespace SokobanBeta
         {
             // Mở form LevelSelectionForm khi nhấn Start Game
             NavigationHelper.PreviousForm = this;
-            if (File.Exists("save_game1.txt") || File.Exists("save_game2.txt"))
+            if (File.Exists("save_game1.txt"))
             {
                 using (StreamReader reader = new StreamReader("save_game1.txt"))
+                {
+                    playerName = reader.ReadLine();
+                }
+                LevelSelectionForm levelSelectionForm = new LevelSelectionForm();
+                levelSelectionForm.Show();
+                this.Hide();  // Ẩn MenuForm
+            }
+            else if (File.Exists("save_game2.txt"))
+            {
+                using (StreamReader reader = new StreamReader("save_game2.txt"))
                 {
                     playerName = reader.ReadLine();
                 }
