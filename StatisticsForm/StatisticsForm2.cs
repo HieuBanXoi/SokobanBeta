@@ -17,6 +17,8 @@ namespace StatisticsForm
         private List<string> moveHistory;
         public bool result;
 
+        public bool Result { get; set; }
+
         // Hàm khởi tạo nhận các tham số để hiển thị
         public StatisticsForm2(int steps, int timeTaken, List<string> moveHistory)
         {
