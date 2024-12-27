@@ -3,18 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35309.182
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SokobanBeta", "SokobanBeta\SokobanBeta.csproj", "{D10979C0-A54A-4499-A8C9-B6D8627EAAC3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Main", "Main\Main.csproj", "{5608B739-C4BC-44FC-90BA-99CD56BD342B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Map", "Map\Map.csproj", "{D844C5E6-9E15-45C6-8760-F1091630C91A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StatisticsForm", "StatisticsForm\StatisticsForm.csproj", "{9DF1F31D-D95D-400F-B90E-304563A86D65}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AA7F6C89-B0F9-4305-9B52-1F3C10EBE2DC}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SokobanBeta", "..\..\SokobanBeta-master\SokobanBeta\SokobanBeta.csproj", "{330EAE25-261D-4843-92F2-83BDF96158D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,22 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D10979C0-A54A-4499-A8C9-B6D8627EAAC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D10979C0-A54A-4499-A8C9-B6D8627EAAC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D10979C0-A54A-4499-A8C9-B6D8627EAAC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D10979C0-A54A-4499-A8C9-B6D8627EAAC3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5608B739-C4BC-44FC-90BA-99CD56BD342B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5608B739-C4BC-44FC-90BA-99CD56BD342B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5608B739-C4BC-44FC-90BA-99CD56BD342B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5608B739-C4BC-44FC-90BA-99CD56BD342B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D844C5E6-9E15-45C6-8760-F1091630C91A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D844C5E6-9E15-45C6-8760-F1091630C91A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D844C5E6-9E15-45C6-8760-F1091630C91A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D844C5E6-9E15-45C6-8760-F1091630C91A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9DF1F31D-D95D-400F-B90E-304563A86D65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9DF1F31D-D95D-400F-B90E-304563A86D65}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9DF1F31D-D95D-400F-B90E-304563A86D65}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9DF1F31D-D95D-400F-B90E-304563A86D65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{330EAE25-261D-4843-92F2-83BDF96158D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{330EAE25-261D-4843-92F2-83BDF96158D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{330EAE25-261D-4843-92F2-83BDF96158D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{330EAE25-261D-4843-92F2-83BDF96158D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
