@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Drawing;
-using StatisticsForm;
+//using StatisticsForm;
 using System.IO;
 
 namespace SokobanBeta

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace StatisticsForm
+namespace SokobanBeta
 {
     public partial class StatisticsForm2 : Form
     {
@@ -16,6 +16,7 @@ namespace StatisticsForm
         private int timeTaken; // Thời gian hoàn thành (tính bằng giây)
         private List<string> moveHistory;
         public bool result;
+        public bool Result { get; set; }
 
         // Hàm khởi tạo nhận các tham số để hiển thị
         public StatisticsForm2(int steps, int timeTaken, List<string> moveHistory)

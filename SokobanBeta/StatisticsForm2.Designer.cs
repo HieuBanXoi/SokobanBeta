@@ -1,4 +1,4 @@
-﻿namespace StatisticsForm
+﻿namespace SokobanBeta
 {
     partial class StatisticsForm2
     {
@@ -52,7 +52,7 @@
             this.lblSteps.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lblSteps.Location = new System.Drawing.Point(12, 99);
             this.lblSteps.Name = "lblSteps";
-            this.lblSteps.Size = new System.Drawing.Size(159, 32);
+            this.lblSteps.Size = new System.Drawing.Size(126, 32);
             this.lblSteps.TabIndex = 0;
             this.lblSteps.Text = "Steps: 0";
             // 
@@ -130,7 +130,7 @@
             // StatisticsForm2
             // 
             this.AutoScroll = true;
-            this.BackgroundImage = global::StatisticsForm.Properties.Resources.StatisticsFormBackground;
+            this.BackgroundImage = global::SokobanBeta.Properties.Resources.StatisticsFormBackground;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(483, 413);
             this.Controls.Add(this.panelHistory);

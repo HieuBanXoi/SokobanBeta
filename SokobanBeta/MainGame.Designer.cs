@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 
-namespace MainSys
+namespace SokobanBeta
 {
-    partial class Main
+    partial class MainGame
     {
         /// <summary>
         /// Required designer variable.

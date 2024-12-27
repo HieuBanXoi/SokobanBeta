@@ -8,13 +8,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Map;
-using StatisticsForm;
+//using Map;
+//using StatisticsForm;
 using NAudio.Wave; // Thêm namespace NAudio
 
-namespace MainSys
+namespace SokobanBeta
 {
-    public partial class Main : Form
+    public partial class MainGame : Form
     {
         private GameMapManager mapManager;
         private char[,] map; // Khai báo map
@@ -50,7 +50,7 @@ namespace MainSys
         private IWavePlayer waveOutDevice;
         private AudioFileReader audioFileReader;
 
-        public Main()
+        public MainGame()
         {
             InitializeComponent();
             this.DoubleBuffered = true; // Màn hình không bị chớp mỗi khi di chuyển nhân vật
@@ -435,7 +435,7 @@ namespace MainSys
                 // Chơi tiếp màn kế tiếp
                 b_TrangThai = TrangThai.OutGoal;  // Đặt lại trạng thái hộp
                 steps = 0;  // Đặt lại số bước về 0
-                NextLevel(currentLevel + 1); // Tải màn kế tiếp
+                NextLevel(++currentLevel); // Tải màn kế tiếp
             }
             else
             {

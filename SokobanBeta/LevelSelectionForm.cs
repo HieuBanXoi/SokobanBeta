@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Drawing;
-using MainSys;
+using SokobanBeta;
 using static SokobanBeta.MenuForm;
 
 namespace SokobanBeta
@@ -52,7 +52,7 @@ namespace SokobanBeta
         private void BtnLevel_Click(object sender, EventArgs e, int level)
         {
             // Tạo một form mới để chơi level tương ứng
-            Main gameForm = new Main();
+            MainGame gameForm = new MainGame();
             gameForm.playerName = Properties.Settings.Default.PlayerName;
             gameForm.LoadSpecificLevel(level); // Tải level tương ứng
             gameForm.Show();

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace StatisticsForm
+namespace SokobanBeta
 {
     public partial class StatisticsForm1 : Form
     {
@@ -68,5 +68,9 @@ namespace StatisticsForm
             this.Close(); // Đóng form thống kê
         }
 
+        private void StatisticsForm1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
