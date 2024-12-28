@@ -15,7 +15,6 @@ namespace SokobanBeta
         private int steps;
         private int timeTaken; // Thời gian hoàn thành (tính bằng giây)
         private List<string> moveHistory;
-        public bool result;
         public bool Result { get; set; }
 
         // Hàm khởi tạo nhận các tham số để hiển thị
@@ -52,13 +51,13 @@ namespace SokobanBeta
 
         private void btnNextLevel_Click(object sender, EventArgs e)
         {
-            result = true;
+            Result = true;
             this.Close();
         }
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            result = false;
+            Result = false;
             this.Close();
         }
     }
