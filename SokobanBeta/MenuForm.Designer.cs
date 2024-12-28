@@ -67,7 +67,7 @@
             this.btnHighScores.TabIndex = 3;
             this.btnHighScores.Text = "High Scores";
             this.btnHighScores.UseVisualStyleBackColor = true;
-            this.btnHighScores.Click += new System.EventHandler(this.btnHighScores_Click);
+            this.btnHighScores.Click += new System.EventHandler(this.BtnHighScores_Click);
             // 
             // btnContinue
             // 
@@ -78,7 +78,7 @@
             this.btnContinue.TabIndex = 4;
             this.btnContinue.Text = "Continue";
             this.btnContinue.UseVisualStyleBackColor = true;
-            this.btnContinue.Click += new System.EventHandler(this.btnContinue_Click);
+            this.btnContinue.Click += new System.EventHandler(this.BtnContinue_Click);
             // 
             // MenuForm
             // 

@@ -45,7 +45,7 @@ namespace SokobanBeta
                 Location = new System.Drawing.Point(startX, startY), // Vị trí cố định
                 Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)))
             };
-            btnLevel1.Click += (sender, e) => BtnLevel_Click(sender, e, 1);
+            btnLevel1.Click += (sender, e) => BtnLevelClick(sender, e, 1);
             this.Controls.Add(btnLevel1);
            
             // Nút Level 2
@@ -56,7 +56,7 @@ namespace SokobanBeta
                 Location = new System.Drawing.Point(startX, startY + buttonHeight + verticalSpacing), // Cộng thêm chiều cao của nút và khoảng cách
                 Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)))
             };
-            btnLevel2.Click += (sender, e) => BtnLevel_Click(sender, e, 2);
+            btnLevel2.Click += (sender, e) => BtnLevelClick(sender, e, 2);
             this.Controls.Add(btnLevel2);
 
             // Nút "Back"
@@ -67,7 +67,7 @@ namespace SokobanBeta
                 Location = new System.Drawing.Point(startX, startY + (2 * buttonHeight) + (2 * verticalSpacing) + moveDownPixels), // Nút "Back" xuống dưới 1cm (75 pixels)
                 Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)))
             };
-            btnBack.Click += BtnBack_Click;
+            btnBack.Click += BtnBackClick;
             this.Controls.Add(btnBack);
 
             // Thuộc tính form
